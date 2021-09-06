@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ITToolbelt.Entity.Db;
+using ITToolbelt.Entity.Enum;
 using ITToolbelt.WinForms.ExtensionMethods;
 
 namespace ITToolbelt.WinForms.Forms.DBAForms
@@ -17,14 +19,17 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
     {
         public bool SuccessFlag { get; set; }
         public string ConnectionString => sqlConnectionString.ConnectionString;
+        public Connection Connection { get; set; }
 
-        private SqlConnectionStringBuilder sqlConnectionString;
-        private BackgroundWorker backgroundWorker;
+        private readonly SqlConnectionStringBuilder sqlConnectionString;
+        private readonly BackgroundWorker backgroundWorker;
         public FormMsSqlLogin()
         {
             InitializeComponent();
             sqlConnectionString = new SqlConnectionStringBuilder();
             comboBoxAuthType.SelectedIndex = 0;
+
+            Connection = new Connection { DbServerTypeCode = DbServerType.MsSql };
 
             backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += BackgroundWorker_DoWork;

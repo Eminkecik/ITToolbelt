@@ -150,6 +150,12 @@
     <Folder Include="InfoForms\" />
     <Folder Include="UserControls\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ITToolbelt.Entity\ITToolbelt.Entity.csproj">
+      <Project>{d4485d69-6004-4f8d-b235-4d17652c4e9c}</Project>
+      <Name>ITToolbelt.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
