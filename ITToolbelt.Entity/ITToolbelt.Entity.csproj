@@ -51,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Db\Connection.cs" />
     <Compile Include="Enum\DbServerType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Db\" />
     <Folder Include="EntityClass\" />
   </ItemGroup>
   <ItemGroup>
