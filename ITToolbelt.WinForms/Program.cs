@@ -19,6 +19,9 @@ namespace ITToolbelt.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Control.CheckForIllegalCrossThreadCalls = false;
+
             Application.Run(new FormMsSqlLogin());
         }
     }

@@ -39,17 +39,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             sqlConnectionString.DataSource = textBoxServerName.Text;
-            if (comboBoxAuthType.InvokeRequired)
-            {
-                comboBoxAuthType.Invoke(new MethodInvoker(delegate
-                {
-                    sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
-                }));
-            }
-            else
-            {
-                sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
-            }
+            sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
             if (sqlConnectionString.IntegratedSecurity)
             {
                 sqlConnectionString.UserID = textBoxUserName.Text;
