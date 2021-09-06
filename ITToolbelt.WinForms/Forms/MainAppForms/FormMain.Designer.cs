@@ -33,6 +33,7 @@ namespace ITToolbelt.WinForms.Forms.MainAppForms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dBACockpitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@ namespace ITToolbelt.WinForms.Forms.MainAppForms
             // dBACockpitToolStripMenuItem
             // 
             this.dBACockpitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectionsToolStripMenuItem,
             this.indexToolStripMenuItem});
             this.dBACockpitToolStripMenuItem.Name = "dBACockpitToolStripMenuItem";
             this.dBACockpitToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
@@ -59,6 +61,12 @@ namespace ITToolbelt.WinForms.Forms.MainAppForms
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
             this.indexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.indexToolStripMenuItem.Text = "Index";
+            // 
+            // connectionsToolStripMenuItem
+            // 
+            this.connectionsToolStripMenuItem.Name = "connectionsToolStripMenuItem";
+            this.connectionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionsToolStripMenuItem.Text = "Connections";
             // 
             // FormMain
             // 
@@ -84,6 +92,7 @@ namespace ITToolbelt.WinForms.Forms.MainAppForms
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dBACockpitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem indexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionsToolStripMenuItem;
     }
 }
 
