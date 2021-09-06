@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.Bll.Managers;
 using ITToolbelt.Entity.Db;
+using ITToolbelt.WinForms.Forms.ControlSpesifications;
 
 namespace ITToolbelt.WinForms.Forms.DBAForms
 {
@@ -51,7 +52,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         {
             DataGridViewRow row = dataGridViewConnections.Rows[e.RowIndex];
             DataGridViewCell cell = row.Cells[17];
-            if (cell.Value == null || cell.Value.ToString() == "Failed")
+            if (cell.Value != null && cell.Value.ToString() == "Failed")
             {
                 row.DefaultCellStyle.BackColor = Color.Red;
                 row.DefaultCellStyle.ForeColor = Color.White;
@@ -61,6 +62,8 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void buttonColumnSelection_Click(object sender, EventArgs e)
         {
             DataGridViewColumnCollection dataGridViewColumnCollection = dataGridViewConnections.Columns;
+            FormGridColumnSelection formGridColumnSelection = new FormGridColumnSelection(dataGridViewColumnCollection);
+            formGridColumnSelection.ShowDialog();
         }
     }
 }

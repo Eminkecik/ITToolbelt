@@ -55,9 +55,11 @@ namespace ITToolbelt.WinForms.Forms.ControlSpesifications
             this.buttonOk.Text = "OK";
             this.buttonOk.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // checkedListBoxColumns
             // 
+            this.checkedListBoxColumns.CheckOnClick = true;
             this.checkedListBoxColumns.FormattingEnabled = true;
             this.checkedListBoxColumns.Location = new System.Drawing.Point(12, 105);
             this.checkedListBoxColumns.Name = "checkedListBoxColumns";
@@ -71,11 +73,14 @@ namespace ITToolbelt.WinForms.Forms.ControlSpesifications
             this.ClientSize = new System.Drawing.Size(267, 451);
             this.Controls.Add(this.checkedListBoxColumns);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormGridColumnSelection";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Column Selections";
+            this.Load += new System.EventHandler(this.FormGridColumnSelection_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
