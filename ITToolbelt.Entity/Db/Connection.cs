@@ -63,6 +63,10 @@ namespace ITToolbelt.Entity.Db
         [DisplayName("Product Minor Version")]
         public string ProductMinorVersion { get; set; }
 
+        [DisplayName("Connection Info")]
+        [MaxLength(10)]
+        public string ConnectionInfo { get; set; }
+
         #endregion FromServer
 
         [NotMapped]
@@ -80,9 +84,6 @@ namespace ITToolbelt.Entity.Db
                         return "Unknown";
                 }
             }}
-
-        [NotMapped]
-        [DisplayName("Connection Info")]
-        public string ConnectionInfo { get; set; }
+        
     }
 }

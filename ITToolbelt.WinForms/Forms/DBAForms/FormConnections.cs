@@ -9,23 +9,41 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.Bll.Managers;
 using ITToolbelt.Entity.Db;
+using ITToolbelt.WinForms.ExtensionMethods;
 using ITToolbelt.WinForms.Forms.ControlSpesifications;
 
 namespace ITToolbelt.WinForms.Forms.DBAForms
 {
     public partial class FormConnections : Form
     {
+        private bool getFromServer;
+        private BackgroundWorker backgroundWorker;
         public FormConnections()
         {
             InitializeComponent();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            toolStripProgressBarConnections.StartStopMarque();
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            RefreshData();
         }
 
         private void FormConnections_Load(object sender, EventArgs e)
         {
-            RefreshData(false);
+            getFromServer = false;
+            toolStripProgressBarConnections.StartStopMarque();
+            backgroundWorker.RunWorkerAsync();
         }
 
-        private void RefreshData(bool getFromServer)
+        private void RefreshData()
         {
             ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
             List<Connection> connections = connectionManager.GetConnections(getFromServer);
@@ -39,13 +57,17 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
             if (msSqlLogin.SuccessFlag)
             {
-                RefreshData(true);
+                getFromServer = true;
+                toolStripProgressBarConnections.StartStopMarque();
+                backgroundWorker.RunWorkerAsync();
             }
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            RefreshData(true);
+            getFromServer = true;
+            toolStripProgressBarConnections.StartStopMarque();
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void dataGridViewConnections_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)

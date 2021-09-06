@@ -34,6 +34,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxConnections = new System.Windows.Forms.GroupBox();
             this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
+            this.buttonColumnSelection = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.ıdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,13 +56,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonColumnSelection = new System.Windows.Forms.Button();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBarConnections = new System.Windows.Forms.ToolStripProgressBar();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +78,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // groupBoxConnections
             // 
+            this.groupBoxConnections.Controls.Add(this.statusStrip1);
             this.groupBoxConnections.Controls.Add(this.dataGridViewConnections);
             this.groupBoxConnections.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxConnections.Location = new System.Drawing.Point(0, 99);
@@ -118,6 +122,47 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewConnections.Size = new System.Drawing.Size(1044, 470);
             this.dataGridViewConnections.TabIndex = 0;
             this.dataGridViewConnections.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewConnections_RowPrePaint);
+            // 
+            // buttonColumnSelection
+            // 
+            this.buttonColumnSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonColumnSelection.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
+            this.buttonColumnSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonColumnSelection.Location = new System.Drawing.Point(882, 12);
+            this.buttonColumnSelection.Name = "buttonColumnSelection";
+            this.buttonColumnSelection.Size = new System.Drawing.Size(75, 75);
+            this.buttonColumnSelection.TabIndex = 0;
+            this.buttonColumnSelection.Text = "Column Selection";
+            this.buttonColumnSelection.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonColumnSelection.UseVisualStyleBackColor = true;
+            this.buttonColumnSelection.Click += new System.EventHandler(this.buttonColumnSelection_Click);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
+            this.buttonRefresh.TabIndex = 0;
+            this.buttonRefresh.Text = "Refresh From Server";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
+            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 75);
+            this.buttonAdd.TabIndex = 0;
+            this.buttonAdd.Text = "Add Connection";
+            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // ıdDataGridViewTextBoxColumn
             // 
@@ -249,46 +294,21 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
             // 
-            // buttonColumnSelection
+            // statusStrip1
             // 
-            this.buttonColumnSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonColumnSelection.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
-            this.buttonColumnSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonColumnSelection.Location = new System.Drawing.Point(882, 12);
-            this.buttonColumnSelection.Name = "buttonColumnSelection";
-            this.buttonColumnSelection.Size = new System.Drawing.Size(75, 75);
-            this.buttonColumnSelection.TabIndex = 0;
-            this.buttonColumnSelection.Text = "Column Selection";
-            this.buttonColumnSelection.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonColumnSelection.UseVisualStyleBackColor = true;
-            this.buttonColumnSelection.Click += new System.EventHandler(this.buttonColumnSelection_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBarConnections});
+            this.statusStrip1.Location = new System.Drawing.Point(3, 464);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1044, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // buttonRefresh
+            // toolStripProgressBarConnections
             // 
-            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
-            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
-            this.buttonRefresh.TabIndex = 0;
-            this.buttonRefresh.Text = "Refresh From Server";
-            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
-            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 75);
-            this.buttonAdd.TabIndex = 0;
-            this.buttonAdd.Text = "Add Connection";
-            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.toolStripProgressBarConnections.Name = "toolStripProgressBarConnections";
+            this.toolStripProgressBarConnections.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBarConnections.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 
             // FormConnections
             // 
@@ -305,8 +325,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.Load += new System.EventHandler(this.FormConnections_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxConnections.ResumeLayout(false);
+            this.groupBoxConnections.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -338,5 +361,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn connectionInfoDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button buttonColumnSelection;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarConnections;
     }
 }
