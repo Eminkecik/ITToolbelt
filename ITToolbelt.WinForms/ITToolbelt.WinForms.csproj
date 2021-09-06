@@ -77,11 +77,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\VisualControls.cs" />
     <Compile Include="Forms\DBAForms\FormConnections.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DBAForms\FormConnections.Designer.cs">
       <DependentUpon>FormConnections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DBAForms\FormMsSqlLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DBAForms\FormMsSqlLogin.Designer.cs">
+      <DependentUpon>FormMsSqlLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainAppForms\FormMain.cs">
       <SubType>Form</SubType>
@@ -94,6 +101,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\DBAForms\FormConnections.resx">
       <DependentUpon>FormConnections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DBAForms\FormMsSqlLogin.resx">
+      <DependentUpon>FormMsSqlLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainAppForms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

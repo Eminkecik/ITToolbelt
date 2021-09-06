@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.WinForms.Forms;
+using ITToolbelt.WinForms.Forms.DBAForms;
 using ITToolbelt.WinForms.Forms.MainAppForms;
 
 namespace ITToolbelt.WinForms
@@ -18,7 +19,7 @@ namespace ITToolbelt.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new FormMsSqlLogin());
         }
     }
 }
