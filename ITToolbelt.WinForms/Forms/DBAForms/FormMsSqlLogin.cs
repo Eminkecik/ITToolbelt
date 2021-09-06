@@ -46,7 +46,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         {
             sqlConnectionString.DataSource = textBoxServerName.Text;
             sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
-            if (sqlConnectionString.IntegratedSecurity)
+            if (!sqlConnectionString.IntegratedSecurity)
             {
                 sqlConnectionString.UserID = textBoxUserName.Text;
                 sqlConnectionString.Password = textBoxPassword.Text;
