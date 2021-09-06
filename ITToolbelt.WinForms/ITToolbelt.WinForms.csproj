@@ -151,6 +151,10 @@
     <Folder Include="UserControls\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ITToolbelt.Bll\ITToolbelt.Bll.csproj">
+      <Project>{CFF1CD8A-36E2-4D81-A65C-1B98AAB39ED2}</Project>
+      <Name>ITToolbelt.Bll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ITToolbelt.Entity\ITToolbelt.Entity.csproj">
       <Project>{d4485d69-6004-4f8d-b235-4d17652c4e9c}</Project>
       <Name>ITToolbelt.Entity</Name>

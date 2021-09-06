@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ITToolbelt.Bll.Managers;
 using ITToolbelt.Entity.Db;
 using ITToolbelt.Entity.Enum;
 using ITToolbelt.WinForms.ExtensionMethods;
@@ -56,6 +57,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             {
                 sqlConnection.Open();
                 SuccessFlag = true;
+
+                Connection.Name = textBoxConName.Text;
+                Connection.ConnectionString = sqlConnectionString.ConnectionString;
+                ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
+                connectionManager.Add(Connection);
             }
             catch (Exception exception)
             {

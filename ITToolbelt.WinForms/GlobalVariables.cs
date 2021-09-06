@@ -8,6 +8,6 @@ namespace ITToolbelt.WinForms
         public static string DomainName => Environment.UserDomainName;
         public static string CurrentUser => Environment.UserName;
         public static string UserWithDomain => $"{DomainName}\\{CurrentUser}";
-        public static string ConnectionString => ConfigurationManager.ConnectionStrings["sql"].ConnectionString;
+        public static string ConnectionString => ConfigurationManager.ConnectionStrings["ItToolbeltContext"].ConnectionString;
     }
 }
