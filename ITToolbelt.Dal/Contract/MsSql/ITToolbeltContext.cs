@@ -7,7 +7,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
 {
     public class ItToolbeltContext : DbContext
     {
-        protected ItToolbeltContext()
+        public ItToolbeltContext()
         {
         }
 
