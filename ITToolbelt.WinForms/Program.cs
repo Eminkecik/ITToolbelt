@@ -22,7 +22,7 @@ namespace ITToolbelt.WinForms
 
             Control.CheckForIllegalCrossThreadCalls = false;
 
-            Application.Run(new FormConnections());
+            Application.Run(new FormMain());
         }
     }
 }

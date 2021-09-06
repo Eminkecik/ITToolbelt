@@ -29,22 +29,259 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnections));
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.groupBoxConnections = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ıdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dbServerTypeCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modifiedDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.machineNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productUpdateLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.collationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productMajorVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productMinorVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1.SuspendLayout();
+            this.groupBoxConnections.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonAdd);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1050, 99);
+            this.panel1.TabIndex = 0;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
+            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 70);
+            this.buttonAdd.TabIndex = 0;
+            this.buttonAdd.Text = "Add Connection";
+            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxConnections
+            // 
+            this.groupBoxConnections.Controls.Add(this.dataGridView1);
+            this.groupBoxConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxConnections.Location = new System.Drawing.Point(0, 99);
+            this.groupBoxConnections.Name = "groupBoxConnections";
+            this.groupBoxConnections.Size = new System.Drawing.Size(1050, 489);
+            this.groupBoxConnections.TabIndex = 1;
+            this.groupBoxConnections.TabStop = false;
+            this.groupBoxConnections.Text = "Connections";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ıdDataGridViewTextBoxColumn,
+            this.dbServerTypeCodeDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.connectionStringDataGridViewTextBoxColumn,
+            this.createDateDataGridViewTextBoxColumn,
+            this.modifiedDateDataGridViewTextBoxColumn,
+            this.machineNameDataGridViewTextBoxColumn,
+            this.serverNameDataGridViewTextBoxColumn,
+            this.editionDataGridViewTextBoxColumn,
+            this.productLevelDataGridViewTextBoxColumn,
+            this.productUpdateLevelDataGridViewTextBoxColumn,
+            this.productVersionDataGridViewTextBoxColumn,
+            this.collationDataGridViewTextBoxColumn,
+            this.productMajorVersionDataGridViewTextBoxColumn,
+            this.productMinorVersionDataGridViewTextBoxColumn,
+            this.dbServerTypeDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.connectionBindingSource;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(1044, 470);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // connectionBindingSource
+            // 
+            this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
+            // 
+            // ıdDataGridViewTextBoxColumn
+            // 
+            this.ıdDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.ıdDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.ıdDataGridViewTextBoxColumn.Name = "ıdDataGridViewTextBoxColumn";
+            this.ıdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ıdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // dbServerTypeCodeDataGridViewTextBoxColumn
+            // 
+            this.dbServerTypeCodeDataGridViewTextBoxColumn.DataPropertyName = "DbServerTypeCode";
+            this.dbServerTypeCodeDataGridViewTextBoxColumn.HeaderText = "DB Server Type Code";
+            this.dbServerTypeCodeDataGridViewTextBoxColumn.Name = "dbServerTypeCodeDataGridViewTextBoxColumn";
+            this.dbServerTypeCodeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Connection Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // connectionStringDataGridViewTextBoxColumn
+            // 
+            this.connectionStringDataGridViewTextBoxColumn.DataPropertyName = "ConnectionString";
+            this.connectionStringDataGridViewTextBoxColumn.HeaderText = "Connection String";
+            this.connectionStringDataGridViewTextBoxColumn.Name = "connectionStringDataGridViewTextBoxColumn";
+            this.connectionStringDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createDateDataGridViewTextBoxColumn
+            // 
+            this.createDateDataGridViewTextBoxColumn.DataPropertyName = "CreateDate";
+            this.createDateDataGridViewTextBoxColumn.HeaderText = "Creation Date";
+            this.createDateDataGridViewTextBoxColumn.Name = "createDateDataGridViewTextBoxColumn";
+            this.createDateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // modifiedDateDataGridViewTextBoxColumn
+            // 
+            this.modifiedDateDataGridViewTextBoxColumn.DataPropertyName = "ModifiedDate";
+            this.modifiedDateDataGridViewTextBoxColumn.HeaderText = "Date of update";
+            this.modifiedDateDataGridViewTextBoxColumn.Name = "modifiedDateDataGridViewTextBoxColumn";
+            this.modifiedDateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // machineNameDataGridViewTextBoxColumn
+            // 
+            this.machineNameDataGridViewTextBoxColumn.DataPropertyName = "MachineName";
+            this.machineNameDataGridViewTextBoxColumn.HeaderText = "Machine Name";
+            this.machineNameDataGridViewTextBoxColumn.Name = "machineNameDataGridViewTextBoxColumn";
+            this.machineNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server Name";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // editionDataGridViewTextBoxColumn
+            // 
+            this.editionDataGridViewTextBoxColumn.DataPropertyName = "Edition";
+            this.editionDataGridViewTextBoxColumn.HeaderText = "Edition";
+            this.editionDataGridViewTextBoxColumn.Name = "editionDataGridViewTextBoxColumn";
+            this.editionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productLevelDataGridViewTextBoxColumn
+            // 
+            this.productLevelDataGridViewTextBoxColumn.DataPropertyName = "ProductLevel";
+            this.productLevelDataGridViewTextBoxColumn.HeaderText = "Product Level";
+            this.productLevelDataGridViewTextBoxColumn.Name = "productLevelDataGridViewTextBoxColumn";
+            this.productLevelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productUpdateLevelDataGridViewTextBoxColumn
+            // 
+            this.productUpdateLevelDataGridViewTextBoxColumn.DataPropertyName = "ProductUpdateLevel";
+            this.productUpdateLevelDataGridViewTextBoxColumn.HeaderText = "Product Update Level";
+            this.productUpdateLevelDataGridViewTextBoxColumn.Name = "productUpdateLevelDataGridViewTextBoxColumn";
+            this.productUpdateLevelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productVersionDataGridViewTextBoxColumn
+            // 
+            this.productVersionDataGridViewTextBoxColumn.DataPropertyName = "ProductVersion";
+            this.productVersionDataGridViewTextBoxColumn.HeaderText = "Product Version";
+            this.productVersionDataGridViewTextBoxColumn.Name = "productVersionDataGridViewTextBoxColumn";
+            this.productVersionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // collationDataGridViewTextBoxColumn
+            // 
+            this.collationDataGridViewTextBoxColumn.DataPropertyName = "Collation";
+            this.collationDataGridViewTextBoxColumn.HeaderText = "Collation";
+            this.collationDataGridViewTextBoxColumn.Name = "collationDataGridViewTextBoxColumn";
+            this.collationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productMajorVersionDataGridViewTextBoxColumn
+            // 
+            this.productMajorVersionDataGridViewTextBoxColumn.DataPropertyName = "ProductMajorVersion";
+            this.productMajorVersionDataGridViewTextBoxColumn.HeaderText = "Product Major Version";
+            this.productMajorVersionDataGridViewTextBoxColumn.Name = "productMajorVersionDataGridViewTextBoxColumn";
+            this.productMajorVersionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // productMinorVersionDataGridViewTextBoxColumn
+            // 
+            this.productMinorVersionDataGridViewTextBoxColumn.DataPropertyName = "ProductMinorVersion";
+            this.productMinorVersionDataGridViewTextBoxColumn.HeaderText = "Product Minor Version";
+            this.productMinorVersionDataGridViewTextBoxColumn.Name = "productMinorVersionDataGridViewTextBoxColumn";
+            this.productMinorVersionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dbServerTypeDataGridViewTextBoxColumn
+            // 
+            this.dbServerTypeDataGridViewTextBoxColumn.DataPropertyName = "DbServerType";
+            this.dbServerTypeDataGridViewTextBoxColumn.HeaderText = "DB Server Type";
+            this.dbServerTypeDataGridViewTextBoxColumn.Name = "dbServerTypeDataGridViewTextBoxColumn";
+            this.dbServerTypeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormConnections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1050, 588);
+            this.Controls.Add(this.groupBoxConnections);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormConnections";
             this.Text = "Connections";
             this.Load += new System.EventHandler(this.FormConnections_Load);
+            this.panel1.ResumeLayout(false);
+            this.groupBoxConnections.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.GroupBox groupBoxConnections;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource connectionBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ıdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeCodeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionStringDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modifiedDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn machineNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn editionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productLevelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productUpdateLevelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productVersionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn collationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productMajorVersionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productMinorVersionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeDataGridViewTextBoxColumn;
     }
 }

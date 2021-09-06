@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.Bll.Managers;
+using ITToolbelt.Entity.Db;
 
 namespace ITToolbelt.WinForms.Forms.DBAForms
 {
@@ -20,8 +21,14 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void FormConnections_Load(object sender, EventArgs e)
         {
+            RefreshData(false);
+        }
+
+        private void RefreshData(bool getFromServer)
+        {
             ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
-            connectionManager.GetConnections(true);
+            List<Connection> connections = connectionManager.GetConnections(getFromServer);
+            connectionBindingSource.DataSource = connections;
         }
     }
 }
