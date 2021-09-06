@@ -34,9 +34,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxConnections = new System.Windows.Forms.GroupBox();
             this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ıdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +52,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.productMinorVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonColumnSelection = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).BeginInit();
@@ -63,6 +64,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonColumnSelection);
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -116,37 +118,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewConnections.Size = new System.Drawing.Size(1044, 470);
             this.dataGridViewConnections.TabIndex = 0;
             this.dataGridViewConnections.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewConnections_RowPrePaint);
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
-            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(75, 70);
-            this.buttonRefresh.TabIndex = 0;
-            this.buttonRefresh.Text = "Refresh From Server";
-            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
-            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 70);
-            this.buttonAdd.TabIndex = 0;
-            this.buttonAdd.Text = "Add Connection";
-            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // connectionBindingSource
-            // 
-            this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
             // 
             // ıdDataGridViewTextBoxColumn
             // 
@@ -274,6 +245,51 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.connectionInfoDataGridViewTextBoxColumn.Name = "connectionInfoDataGridViewTextBoxColumn";
             this.connectionInfoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // connectionBindingSource
+            // 
+            this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
+            // 
+            // buttonColumnSelection
+            // 
+            this.buttonColumnSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonColumnSelection.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
+            this.buttonColumnSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonColumnSelection.Location = new System.Drawing.Point(882, 12);
+            this.buttonColumnSelection.Name = "buttonColumnSelection";
+            this.buttonColumnSelection.Size = new System.Drawing.Size(75, 75);
+            this.buttonColumnSelection.TabIndex = 0;
+            this.buttonColumnSelection.Text = "Column Selection";
+            this.buttonColumnSelection.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonColumnSelection.UseVisualStyleBackColor = true;
+            this.buttonColumnSelection.Click += new System.EventHandler(this.buttonColumnSelection_Click);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
+            this.buttonRefresh.TabIndex = 0;
+            this.buttonRefresh.Text = "Refresh From Server";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
+            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 75);
+            this.buttonAdd.TabIndex = 0;
+            this.buttonAdd.Text = "Add Connection";
+            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
             // FormConnections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,5 +337,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridViewTextBoxColumn productMinorVersionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn connectionInfoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button buttonColumnSelection;
     }
 }

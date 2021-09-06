@@ -57,5 +57,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 row.DefaultCellStyle.ForeColor = Color.White;
             }
         }
+
+        private void buttonColumnSelection_Click(object sender, EventArgs e)
+        {
+            DataGridViewColumnCollection dataGridViewColumnCollection = dataGridViewConnections.Columns;
+        }
     }
 }
