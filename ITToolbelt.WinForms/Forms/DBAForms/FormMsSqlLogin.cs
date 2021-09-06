@@ -19,35 +19,43 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         public string ConnectionString => sqlConnectionString.ConnectionString;
 
         private SqlConnectionStringBuilder sqlConnectionString;
+        private BackgroundWorker backgroundWorker;
         public FormMsSqlLogin()
         {
             InitializeComponent();
             sqlConnectionString = new SqlConnectionStringBuilder();
             comboBoxAuthType.SelectedIndex = 0;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
-        private void buttonHelp_Click(object sender, System.EventArgs e)
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Process.Start("https://docs.microsoft.com/en-us/sql/ssms/f1-help/connect-to-server-database-engine");
+            progressBarConnection.StartStopMarque();
         }
 
-        private void buttonCancel_Click(object sender, System.EventArgs e)
-        {
-            SuccessFlag = false;
-            Close();
-        }
-
-        private void buttonConnect_Click(object sender, System.EventArgs e)
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             sqlConnectionString.DataSource = textBoxServerName.Text;
-            sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
+            if (comboBoxAuthType.InvokeRequired)
+            {
+                comboBoxAuthType.Invoke(new MethodInvoker(delegate
+                {
+                    sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
+                }));
+            }
+            else
+            {
+                sqlConnectionString.IntegratedSecurity = comboBoxAuthType.SelectedIndex == 0;
+            }
             if (sqlConnectionString.IntegratedSecurity)
             {
                 sqlConnectionString.UserID = textBoxUserName.Text;
                 sqlConnectionString.Password = textBoxPassword.Text;
             }
 
-            progressBarConnection.StartStopMarque();
             SqlConnection sqlConnection = new SqlConnection(sqlConnectionString.ConnectionString);
             try
             {
@@ -66,8 +74,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 }
             }
 
-            progressBarConnection.StartStopMarque();
-
             if (SuccessFlag)
             {
                 MessageBox.Show("Başarılı");
@@ -76,6 +82,23 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             {
                 MessageBox.Show("Başarısız");
             }
+        }
+
+        private void buttonHelp_Click(object sender, System.EventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/sql/ssms/f1-help/connect-to-server-database-engine");
+        }
+
+        private void buttonCancel_Click(object sender, System.EventArgs e)
+        {
+            SuccessFlag = false;
+            Close();
+        }
+
+        private void buttonConnect_Click(object sender, System.EventArgs e)
+        {
+            progressBarConnection.StartStopMarque();
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void comboBoxAuthType_SelectedIndexChanged(object sender, System.EventArgs e)
