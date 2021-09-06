@@ -40,6 +40,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConnections";
             this.Text = "Connections";
+            this.Load += new System.EventHandler(this.FormConnections_Load);
             this.ResumeLayout(false);
 
         }

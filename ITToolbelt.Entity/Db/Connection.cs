@@ -28,7 +28,7 @@ namespace ITToolbelt.Entity.Db
         public DateTime CreateDate { get; set; }
 
         [DisplayName("Date of update")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         #region FromServer
 

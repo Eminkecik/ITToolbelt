@@ -22,7 +22,7 @@ namespace ITToolbelt.WinForms
 
             Control.CheckForIllegalCrossThreadCalls = false;
 
-            Application.Run(new FormMsSqlLogin());
+            Application.Run(new FormConnections());
         }
     }
 }

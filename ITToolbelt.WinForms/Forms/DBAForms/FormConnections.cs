@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ITToolbelt.Bll.Managers;
 
 namespace ITToolbelt.WinForms.Forms.DBAForms
 {
@@ -15,6 +16,12 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         public FormConnections()
         {
             InitializeComponent();
+        }
+
+        private void FormConnections_Load(object sender, EventArgs e)
+        {
+            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
+            connectionManager.GetConnections(true);
         }
     }
 }
