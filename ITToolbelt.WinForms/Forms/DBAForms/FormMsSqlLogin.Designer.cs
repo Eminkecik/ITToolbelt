@@ -43,6 +43,12 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
+            this.groupBoxInfo = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxConName = new System.Windows.Forms.TextBox();
+            this.groupBoxServerInfo = new System.Windows.Forms.GroupBox();
+            this.groupBoxInfo.SuspendLayout();
+            this.groupBoxServerInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -69,7 +75,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 75);
+            this.label2.Location = new System.Drawing.Point(4, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 2;
@@ -78,7 +84,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 101);
+            this.label3.Location = new System.Drawing.Point(4, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 2;
@@ -87,7 +93,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 128);
+            this.label4.Location = new System.Drawing.Point(27, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 2;
@@ -96,7 +102,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 154);
+            this.label5.Location = new System.Drawing.Point(32, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 2;
@@ -104,10 +110,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // textBoxServerName
             // 
-            this.textBoxServerName.Location = new System.Drawing.Point(112, 72);
+            this.textBoxServerName.Location = new System.Drawing.Point(107, 19);
             this.textBoxServerName.Name = "textBoxServerName";
-            this.textBoxServerName.Size = new System.Drawing.Size(237, 20);
-            this.textBoxServerName.TabIndex = 3;
+            this.textBoxServerName.Size = new System.Drawing.Size(230, 20);
+            this.textBoxServerName.TabIndex = 0;
             // 
             // comboBoxAuthType
             // 
@@ -116,30 +122,30 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.comboBoxAuthType.Items.AddRange(new object[] {
             "Windows Authentication",
             "SQL Server Authentication"});
-            this.comboBoxAuthType.Location = new System.Drawing.Point(112, 98);
+            this.comboBoxAuthType.Location = new System.Drawing.Point(107, 45);
             this.comboBoxAuthType.Name = "comboBoxAuthType";
-            this.comboBoxAuthType.Size = new System.Drawing.Size(237, 21);
-            this.comboBoxAuthType.TabIndex = 4;
+            this.comboBoxAuthType.Size = new System.Drawing.Size(230, 21);
+            this.comboBoxAuthType.TabIndex = 1;
             this.comboBoxAuthType.SelectedIndexChanged += new System.EventHandler(this.comboBoxAuthType_SelectedIndexChanged);
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(142, 125);
+            this.textBoxUserName.Location = new System.Drawing.Point(137, 72);
             this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(207, 20);
-            this.textBoxUserName.TabIndex = 5;
+            this.textBoxUserName.Size = new System.Drawing.Size(200, 20);
+            this.textBoxUserName.TabIndex = 2;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(142, 151);
+            this.textBoxPassword.Location = new System.Drawing.Point(137, 98);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
-            this.textBoxPassword.Size = new System.Drawing.Size(207, 20);
-            this.textBoxPassword.TabIndex = 6;
+            this.textBoxPassword.Size = new System.Drawing.Size(200, 20);
+            this.textBoxPassword.TabIndex = 3;
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(274, 200);
+            this.buttonHelp.Location = new System.Drawing.Point(281, 270);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(75, 23);
             this.buttonHelp.TabIndex = 7;
@@ -149,7 +155,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(193, 200);
+            this.buttonCancel.Location = new System.Drawing.Point(200, 270);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -159,30 +165,68 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(112, 200);
+            this.buttonConnect.Location = new System.Drawing.Point(119, 270);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(75, 23);
-            this.buttonConnect.TabIndex = 7;
+            this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // groupBoxInfo
+            // 
+            this.groupBoxInfo.Controls.Add(this.textBoxConName);
+            this.groupBoxInfo.Controls.Add(this.label6);
+            this.groupBoxInfo.Location = new System.Drawing.Point(12, 72);
+            this.groupBoxInfo.Name = "groupBoxInfo";
+            this.groupBoxInfo.Size = new System.Drawing.Size(344, 53);
+            this.groupBoxInfo.TabIndex = 8;
+            this.groupBoxInfo.TabStop = false;
+            this.groupBoxInfo.Text = "Connection Info";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Connection Name:";
+            // 
+            // textBoxConName
+            // 
+            this.textBoxConName.Location = new System.Drawing.Point(107, 19);
+            this.textBoxConName.Name = "textBoxConName";
+            this.textBoxConName.Size = new System.Drawing.Size(230, 20);
+            this.textBoxConName.TabIndex = 0;
+            // 
+            // groupBoxServerInfo
+            // 
+            this.groupBoxServerInfo.Controls.Add(this.label2);
+            this.groupBoxServerInfo.Controls.Add(this.label3);
+            this.groupBoxServerInfo.Controls.Add(this.label4);
+            this.groupBoxServerInfo.Controls.Add(this.label5);
+            this.groupBoxServerInfo.Controls.Add(this.textBoxServerName);
+            this.groupBoxServerInfo.Controls.Add(this.textBoxPassword);
+            this.groupBoxServerInfo.Controls.Add(this.comboBoxAuthType);
+            this.groupBoxServerInfo.Controls.Add(this.textBoxUserName);
+            this.groupBoxServerInfo.Location = new System.Drawing.Point(12, 131);
+            this.groupBoxServerInfo.Name = "groupBoxServerInfo";
+            this.groupBoxServerInfo.Size = new System.Drawing.Size(344, 133);
+            this.groupBoxServerInfo.TabIndex = 9;
+            this.groupBoxServerInfo.TabStop = false;
+            this.groupBoxServerInfo.Text = "Server Info";
             // 
             // FormMsSqlLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 238);
+            this.ClientSize = new System.Drawing.Size(368, 309);
+            this.Controls.Add(this.groupBoxServerInfo);
+            this.Controls.Add(this.groupBoxInfo);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonHelp);
-            this.Controls.Add(this.textBoxPassword);
-            this.Controls.Add(this.textBoxUserName);
-            this.Controls.Add(this.comboBoxAuthType);
-            this.Controls.Add(this.textBoxServerName);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBarConnection);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -191,6 +235,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.MinimizeBox = false;
             this.Name = "FormMsSqlLogin";
             this.Text = "Connect to Server";
+            this.groupBoxInfo.ResumeLayout(false);
+            this.groupBoxInfo.PerformLayout();
+            this.groupBoxServerInfo.ResumeLayout(false);
+            this.groupBoxServerInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,5 +259,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonConnect;
+        private System.Windows.Forms.GroupBox groupBoxInfo;
+        private System.Windows.Forms.TextBox textBoxConName;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBoxServerInfo;
     }
 }
