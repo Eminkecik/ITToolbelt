@@ -32,9 +32,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnections));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAdd = new System.Windows.Forms.Button();
             this.groupBoxConnections = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ıdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +45,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.modifiedDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.machineNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ınstanceNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productUpdateLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,24 +62,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.buttonAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1050, 99);
             this.panel1.TabIndex = 0;
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
-            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 70);
-            this.buttonAdd.TabIndex = 0;
-            this.buttonAdd.Text = "Add Connection";
-            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
             // groupBoxConnections
             // 
@@ -106,6 +97,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.modifiedDateDataGridViewTextBoxColumn,
             this.machineNameDataGridViewTextBoxColumn,
             this.serverNameDataGridViewTextBoxColumn,
+            this.ınstanceNameDataGridViewTextBoxColumn,
             this.editionDataGridViewTextBoxColumn,
             this.productLevelDataGridViewTextBoxColumn,
             this.productUpdateLevelDataGridViewTextBoxColumn,
@@ -122,6 +114,33 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridView1.Size = new System.Drawing.Size(1044, 470);
             this.dataGridView1.TabIndex = 0;
             // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 70);
+            this.buttonRefresh.TabIndex = 0;
+            this.buttonRefresh.Text = "Refresh From Server";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
+            this.buttonAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonAdd.Location = new System.Drawing.Point(12, 12);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 70);
+            this.buttonAdd.TabIndex = 0;
+            this.buttonAdd.Text = "Add Connection";
+            this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
             // connectionBindingSource
             // 
             this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
@@ -132,7 +151,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.ıdDataGridViewTextBoxColumn.HeaderText = "Id";
             this.ıdDataGridViewTextBoxColumn.Name = "ıdDataGridViewTextBoxColumn";
             this.ıdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.ıdDataGridViewTextBoxColumn.Visible = false;
             // 
             // dbServerTypeCodeDataGridViewTextBoxColumn
             // 
@@ -182,6 +200,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server Name";
             this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
             this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ınstanceNameDataGridViewTextBoxColumn
+            // 
+            this.ınstanceNameDataGridViewTextBoxColumn.DataPropertyName = "InstanceName";
+            this.ınstanceNameDataGridViewTextBoxColumn.HeaderText = "Instance Name";
+            this.ınstanceNameDataGridViewTextBoxColumn.Name = "ınstanceNameDataGridViewTextBoxColumn";
+            this.ınstanceNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // editionDataGridViewTextBoxColumn
             // 
@@ -267,6 +292,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.GroupBox groupBoxConnections;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource connectionBindingSource;
+        private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.DataGridViewTextBoxColumn ıdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeCodeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
@@ -275,6 +301,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridViewTextBoxColumn modifiedDateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn machineNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ınstanceNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn editionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn productLevelDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn productUpdateLevelDataGridViewTextBoxColumn;

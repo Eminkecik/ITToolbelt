@@ -44,8 +44,8 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.groupBoxInfo = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBoxConName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBoxServerInfo = new System.Windows.Forms.GroupBox();
             this.groupBoxInfo.SuspendLayout();
             this.groupBoxServerInfo.SuspendLayout();
@@ -184,6 +184,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.groupBoxInfo.TabStop = false;
             this.groupBoxInfo.Text = "Connection Info";
             // 
+            // textBoxConName
+            // 
+            this.textBoxConName.Location = new System.Drawing.Point(107, 19);
+            this.textBoxConName.Name = "textBoxConName";
+            this.textBoxConName.Size = new System.Drawing.Size(230, 20);
+            this.textBoxConName.TabIndex = 0;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -192,13 +199,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.label6.Size = new System.Drawing.Size(95, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Connection Name:";
-            // 
-            // textBoxConName
-            // 
-            this.textBoxConName.Location = new System.Drawing.Point(107, 19);
-            this.textBoxConName.Name = "textBoxConName";
-            this.textBoxConName.Size = new System.Drawing.Size(230, 20);
-            this.textBoxConName.TabIndex = 0;
             // 
             // groupBoxServerInfo
             // 
@@ -234,6 +234,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMsSqlLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connect to Server";
             this.groupBoxInfo.ResumeLayout(false);
             this.groupBoxInfo.PerformLayout();

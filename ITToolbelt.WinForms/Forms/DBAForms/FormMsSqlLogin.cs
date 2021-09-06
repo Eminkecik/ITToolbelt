@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.Bll.Managers;
@@ -24,6 +25,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private readonly SqlConnectionStringBuilder sqlConnectionString;
         private readonly BackgroundWorker backgroundWorker;
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
         public FormMsSqlLogin()
         {
             InitializeComponent();
@@ -56,12 +58,14 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             try
             {
                 sqlConnection.Open();
+                sqlConnection.Close();
                 SuccessFlag = true;
 
                 Connection.Name = textBoxConName.Text;
                 Connection.ConnectionString = sqlConnectionString.ConnectionString;
                 ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
-                connectionManager.Add(Connection);
+                SuccessFlag = connectionManager.Add(Connection);
+                
             }
             catch (Exception exception)
             {
@@ -75,13 +79,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 }
             }
 
+            MessageBox.Show($"Add connection {(SuccessFlag ? "successful" : "failed")}", SuccessFlag ? "Information" : "Error", MessageBoxButtons.OK, SuccessFlag ? MessageBoxIcon.Information : MessageBoxIcon.Error);
             if (SuccessFlag)
             {
-                MessageBox.Show("Başarılı");
-            }
-            else
-            {
-                MessageBox.Show("Başarısız");
+                Close();
             }
         }
 

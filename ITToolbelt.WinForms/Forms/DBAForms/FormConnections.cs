@@ -30,5 +30,21 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             List<Connection> connections = connectionManager.GetConnections(getFromServer);
             connectionBindingSource.DataSource = connections;
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            FormMsSqlLogin msSqlLogin = new FormMsSqlLogin();
+            msSqlLogin.ShowDialog();
+
+            if (msSqlLogin.SuccessFlag)
+            {
+                RefreshData(true);
+            }
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshData(true);
+        }
     }
 }

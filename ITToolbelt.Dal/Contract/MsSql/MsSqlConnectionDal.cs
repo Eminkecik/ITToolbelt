@@ -40,7 +40,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
                         using (ServerContext serverContext = new ServerContext(connection.ConnectionString))
                         {
                             Connection conFromServer = serverContext.Database.SqlQuery<Connection>(
-                                    "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion")
+                                    "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
                                 .FirstOrDefault();
 
                             connection.ModifiedDate = DateTime.Now;
@@ -53,7 +53,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
                             connection.Collation = conFromServer.Collation;
                             connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
                             connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
-
+                            connection.InstanceName = conFromServer.InstanceName;
                             context.SaveChanges();
                         }
                     }

@@ -39,6 +39,9 @@ namespace ITToolbelt.Entity.Db
         [DisplayName("Server Name")]
         public string ServerName { get; set; }
         [MaxLength(128)]
+        [DisplayName("Instance Name")]
+        public string InstanceName { get; set; }
+        [MaxLength(128)]
         [DisplayName("Edition")]
         public string Edition { get; set; }
         [MaxLength(128)]
