@@ -7,7 +7,7 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
-    public class MsSqlConnectionDal:IConnectionDal
+    public class MsSqlConnectionDal : IConnectionDal
     {
         public string ConnectionString { get; }
 
@@ -33,9 +33,13 @@ namespace ITToolbelt.Dal.Contract.MsSql
                 connections = context.Connections.ToList();
 
 
-                if (updateFromServer)
+                if (!updateFromServer)
                 {
-                    foreach (Connection connection in connections)
+                    return connections;
+                }
+                foreach (Connection connection in connections)
+                {
+                    try
                     {
                         using (ServerContext serverContext = new ServerContext(connection.ConnectionString))
                         {
@@ -43,7 +47,6 @@ namespace ITToolbelt.Dal.Contract.MsSql
                                     "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
                                 .FirstOrDefault();
 
-                            connection.ModifiedDate = DateTime.Now;
                             connection.MachineName = conFromServer.MachineName;
                             connection.ServerName = conFromServer.ServerName;
                             connection.Edition = conFromServer.Edition;
@@ -54,10 +57,21 @@ namespace ITToolbelt.Dal.Contract.MsSql
                             connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
                             connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
                             connection.InstanceName = conFromServer.InstanceName;
-                            context.SaveChanges();
+                            connection.ConnectionInfo = "Successful";
+
                         }
                     }
+                    catch (Exception e)
+                    {
+                        connection.ConnectionInfo = "Failed";
+                    }
+                    finally
+                    {
+                        connection.ModifiedDate = DateTime.Now;
+                    }
                 }
+
+                context.SaveChanges();
             }
 
             return connections;

@@ -33,7 +33,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnections));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxConnections = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -54,9 +54,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.productMajorVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productMinorVersionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,7 +73,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             // groupBoxConnections
             // 
-            this.groupBoxConnections.Controls.Add(this.dataGridView1);
+            this.groupBoxConnections.Controls.Add(this.dataGridViewConnections);
             this.groupBoxConnections.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxConnections.Location = new System.Drawing.Point(0, 99);
             this.groupBoxConnections.Name = "groupBoxConnections";
@@ -81,14 +82,14 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.groupBoxConnections.TabStop = false;
             this.groupBoxConnections.Text = "Connections";
             // 
-            // dataGridView1
+            // dataGridViewConnections
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewConnections.AllowUserToAddRows = false;
+            this.dataGridViewConnections.AllowUserToDeleteRows = false;
+            this.dataGridViewConnections.AllowUserToOrderColumns = true;
+            this.dataGridViewConnections.AutoGenerateColumns = false;
+            this.dataGridViewConnections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewConnections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ıdDataGridViewTextBoxColumn,
             this.dbServerTypeCodeDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
@@ -105,14 +106,16 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.collationDataGridViewTextBoxColumn,
             this.productMajorVersionDataGridViewTextBoxColumn,
             this.productMinorVersionDataGridViewTextBoxColumn,
-            this.dbServerTypeDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.connectionBindingSource;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1044, 470);
-            this.dataGridView1.TabIndex = 0;
+            this.dbServerTypeDataGridViewTextBoxColumn,
+            this.connectionInfoDataGridViewTextBoxColumn});
+            this.dataGridViewConnections.DataSource = this.connectionBindingSource;
+            this.dataGridViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewConnections.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewConnections.Name = "dataGridViewConnections";
+            this.dataGridViewConnections.ReadOnly = true;
+            this.dataGridViewConnections.Size = new System.Drawing.Size(1044, 470);
+            this.dataGridViewConnections.TabIndex = 0;
+            this.dataGridViewConnections.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewConnections_RowPrePaint);
             // 
             // buttonRefresh
             // 
@@ -264,6 +267,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dbServerTypeDataGridViewTextBoxColumn.Name = "dbServerTypeDataGridViewTextBoxColumn";
             this.dbServerTypeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // connectionInfoDataGridViewTextBoxColumn
+            // 
+            this.connectionInfoDataGridViewTextBoxColumn.DataPropertyName = "ConnectionInfo";
+            this.connectionInfoDataGridViewTextBoxColumn.HeaderText = "Connection Info";
+            this.connectionInfoDataGridViewTextBoxColumn.Name = "connectionInfoDataGridViewTextBoxColumn";
+            this.connectionInfoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // FormConnections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -279,7 +289,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.Load += new System.EventHandler(this.FormConnections_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxConnections.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -290,7 +300,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.GroupBox groupBoxConnections;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewConnections;
         private System.Windows.Forms.BindingSource connectionBindingSource;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.DataGridViewTextBoxColumn ıdDataGridViewTextBoxColumn;
@@ -310,5 +320,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridViewTextBoxColumn productMajorVersionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn productMinorVersionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dbServerTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionInfoDataGridViewTextBoxColumn;
     }
 }

@@ -46,5 +46,16 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         {
             RefreshData(true);
         }
+
+        private void dataGridViewConnections_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            DataGridViewRow row = dataGridViewConnections.Rows[e.RowIndex];
+            DataGridViewCell cell = row.Cells[17];
+            if (cell.Value == null || cell.Value.ToString() == "Failed")
+            {
+                row.DefaultCellStyle.BackColor = Color.Red;
+                row.DefaultCellStyle.ForeColor = Color.White;
+            }
+        }
     }
 }

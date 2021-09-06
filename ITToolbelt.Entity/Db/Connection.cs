@@ -80,5 +80,9 @@ namespace ITToolbelt.Entity.Db
                         return "Unknown";
                 }
             }}
+
+        [NotMapped]
+        [DisplayName("Connection Info")]
+        public string ConnectionInfo { get; set; }
     }
 }
