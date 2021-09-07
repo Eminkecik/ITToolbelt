@@ -17,6 +17,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 {
     public partial class FormIndexes : Form
     {
+        private TreeNodeType backWorkerFlag;
         private readonly BackgroundWorker backgroundWorker;
         public FormIndexes()
         {
@@ -25,6 +26,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
 
+            backWorkerFlag = TreeNodeType.Connection;
             toolStripProgressBarStatus.StartStopMarque();
             backgroundWorker.RunWorkerAsync();
         }
@@ -48,7 +50,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                     {
                         treeViewConnections.Nodes.Add(treeNode);
                     }));
-                //treeViewConnections.Nodes.Add(treeNode);
             }
         }
 
@@ -69,7 +70,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             switch (treeNodeType)
             {
                 case TreeNodeType.Database:
-                    GetDatabases(treeNode);
+                    backWorkerFlag = TreeNodeType.Database;
+                    toolStripProgressBarStatus.StartStopMarque();
+                    backgroundWorker.RunWorkerAsync(argument: treeNode);
                     break;
                 case TreeNodeType.Table:
                     break;
@@ -85,22 +88,41 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             ConnectionManager connectionManager = new ConnectionManager(treeNode.Name);
             List<Database> databases = connectionManager.GetDatabases();
 
-            if (databases.Count > 0)
-            {
-                treeNode.Nodes.Clear();
-            }
+            treeViewConnections.Invoke(
+                new Action(delegate
+                {
+                    if (databases.Count > 0)
+                    {
+                        treeNode.Nodes.Clear();
+                    }
 
-            foreach (Database database in databases)
-            {
-                treeNode.Nodes.Add(database.Id.ToString(), database.Name);
-            }
+                    foreach (Database database in databases)
+                    {
+                        treeNode.Nodes.Add(database.Id.ToString(), database.Name);
+                    }
 
-            treeNode.Expand();
+                    treeNode.Expand();
+                }));
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            RefreshConnections();
+            switch (backWorkerFlag)
+            {
+                case TreeNodeType.Connection:
+                    RefreshConnections();
+                    break;
+                case TreeNodeType.Database:
+                    TreeNode treeNode = e.Argument as TreeNode;
+                    GetDatabases(treeNode);
+                    break;
+                case TreeNodeType.Table:
+                    break;
+                case TreeNodeType.Index:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

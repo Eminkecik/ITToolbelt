@@ -2,6 +2,7 @@
 {
     public enum TreeNodeType
     {
+        Connection,
         Database,
         Table,
         Index
