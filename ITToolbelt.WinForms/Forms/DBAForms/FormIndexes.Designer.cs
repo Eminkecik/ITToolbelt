@@ -36,23 +36,23 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBoxIndex = new System.Windows.Forms.GroupBox();
             this.dataGridViewIndexes = new System.Windows.Forms.DataGridView();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBarStatus = new System.Windows.Forms.ToolStripProgressBar();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.indexBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.schemaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ındexNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fragmantationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.indexBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBarStatus = new System.Windows.Forms.ToolStripProgressBar();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.groupBoxIndex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIndexes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // treeViewConnections
@@ -116,6 +116,46 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewIndexes.ReadOnly = true;
             this.dataGridViewIndexes.Size = new System.Drawing.Size(731, 497);
             this.dataGridViewIndexes.TabIndex = 0;
+            this.dataGridViewIndexes.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewIndexes_DataError);
+            // 
+            // schemaDataGridViewTextBoxColumn
+            // 
+            this.schemaDataGridViewTextBoxColumn.DataPropertyName = "Schema";
+            this.schemaDataGridViewTextBoxColumn.HeaderText = "Schema Name";
+            this.schemaDataGridViewTextBoxColumn.Name = "schemaDataGridViewTextBoxColumn";
+            this.schemaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tableDataGridViewTextBoxColumn
+            // 
+            this.tableDataGridViewTextBoxColumn.DataPropertyName = "Table";
+            this.tableDataGridViewTextBoxColumn.HeaderText = "Table Name";
+            this.tableDataGridViewTextBoxColumn.Name = "tableDataGridViewTextBoxColumn";
+            this.tableDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ındexNameDataGridViewTextBoxColumn
+            // 
+            this.ındexNameDataGridViewTextBoxColumn.DataPropertyName = "IndexName";
+            this.ındexNameDataGridViewTextBoxColumn.HeaderText = "Index Name";
+            this.ındexNameDataGridViewTextBoxColumn.Name = "ındexNameDataGridViewTextBoxColumn";
+            this.ındexNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fragmantationDataGridViewTextBoxColumn
+            // 
+            this.fragmantationDataGridViewTextBoxColumn.DataPropertyName = "Fragmantation";
+            this.fragmantationDataGridViewTextBoxColumn.HeaderText = "AVG Fragmantation";
+            this.fragmantationDataGridViewTextBoxColumn.Name = "fragmantationDataGridViewTextBoxColumn";
+            this.fragmantationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pageCountDataGridViewTextBoxColumn
+            // 
+            this.pageCountDataGridViewTextBoxColumn.DataPropertyName = "PageCount";
+            this.pageCountDataGridViewTextBoxColumn.HeaderText = "Page Count";
+            this.pageCountDataGridViewTextBoxColumn.Name = "pageCountDataGridViewTextBoxColumn";
+            this.pageCountDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // indexBindingSource
+            // 
+            this.indexBindingSource.DataSource = typeof(ITToolbelt.Entity.EntityClass.Index);
             // 
             // statusStrip
             // 
@@ -153,45 +193,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connections";
             // 
-            // indexBindingSource
-            // 
-            this.indexBindingSource.DataSource = typeof(ITToolbelt.Entity.EntityClass.Index);
-            // 
-            // schemaDataGridViewTextBoxColumn
-            // 
-            this.schemaDataGridViewTextBoxColumn.DataPropertyName = "Schema";
-            this.schemaDataGridViewTextBoxColumn.HeaderText = "Schema Name";
-            this.schemaDataGridViewTextBoxColumn.Name = "schemaDataGridViewTextBoxColumn";
-            this.schemaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tableDataGridViewTextBoxColumn
-            // 
-            this.tableDataGridViewTextBoxColumn.DataPropertyName = "Table";
-            this.tableDataGridViewTextBoxColumn.HeaderText = "Table Name";
-            this.tableDataGridViewTextBoxColumn.Name = "tableDataGridViewTextBoxColumn";
-            this.tableDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ındexNameDataGridViewTextBoxColumn
-            // 
-            this.ındexNameDataGridViewTextBoxColumn.DataPropertyName = "IndexName";
-            this.ındexNameDataGridViewTextBoxColumn.HeaderText = "Index Name";
-            this.ındexNameDataGridViewTextBoxColumn.Name = "ındexNameDataGridViewTextBoxColumn";
-            this.ındexNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fragmantationDataGridViewTextBoxColumn
-            // 
-            this.fragmantationDataGridViewTextBoxColumn.DataPropertyName = "Fragmantation";
-            this.fragmantationDataGridViewTextBoxColumn.HeaderText = "AVG Fragmantation";
-            this.fragmantationDataGridViewTextBoxColumn.Name = "fragmantationDataGridViewTextBoxColumn";
-            this.fragmantationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pageCountDataGridViewTextBoxColumn
-            // 
-            this.pageCountDataGridViewTextBoxColumn.DataPropertyName = "PageCount";
-            this.pageCountDataGridViewTextBoxColumn.HeaderText = "Page Count";
-            this.pageCountDataGridViewTextBoxColumn.Name = "pageCountDataGridViewTextBoxColumn";
-            this.pageCountDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // FormIndexes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,11 +210,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1.ResumeLayout(false);
             this.groupBoxIndex.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIndexes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

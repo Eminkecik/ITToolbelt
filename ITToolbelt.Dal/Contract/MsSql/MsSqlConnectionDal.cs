@@ -83,7 +83,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
         {
             using (ServerContext serverContext = new ServerContext(ConnectionString))
             {
-                List<Database> databases = serverContext.Database.SqlQuery<Database>("select database_id as Id, name as Name from sys.databases")
+                List<Database> databases = serverContext.Database.SqlQuery<Database>("select database_id as Id, name as Name, state as [State] from sys.databases")
                     .ToList();
                 return databases;
             }

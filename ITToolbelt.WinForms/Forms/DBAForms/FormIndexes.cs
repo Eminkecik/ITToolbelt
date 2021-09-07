@@ -115,6 +115,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                             Text = database.Name,
                             Tag = TreeNodeType.Database
                         };
+                        if (database.State > 0)
+                        {
+                            dbNode.BackColor = Color.Red;
+                        }
                         treeNode.Nodes.Add(dbNode);
                     }
 
@@ -162,7 +166,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                     break;
                 case TreeNodeType.Table:
                     treeNode = e.Argument as TreeNode;
-                    GetTables(treeNode);
+                   // GetTables(treeNode);
                     GetIndexes(treeNode);
                     break;
                 case TreeNodeType.Index:
@@ -179,10 +183,19 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void GetIndexes(TreeNode treeNode)
         {
+            if (treeNode.BackColor == Color.Red)
+            {
+                return;
+            }
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
             indexBindingSource.DataSource = indexes;
             dataGridViewIndexes.Refresh();
+        }
+
+        private void dataGridViewIndexes_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }
