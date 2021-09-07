@@ -189,8 +189,21 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             }
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
-            indexBindingSource.DataSource = indexes;
-           // dataGridViewIndexes.Refresh();
+
+            
+            if (dataGridViewIndexes.InvokeRequired)
+            {
+                dataGridViewIndexes.Invoke(new Action(delegate
+                {
+                    indexBindingSource.DataSource = indexes;
+                }));
+            }
+            else
+            {
+                indexBindingSource.DataSource = indexes;
+            }
+
+            // dataGridViewIndexes.Refresh();
         }
 
         private void dataGridViewIndexes_DataError(object sender, DataGridViewDataErrorEventArgs e)
