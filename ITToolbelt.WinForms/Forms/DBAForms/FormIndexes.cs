@@ -18,6 +18,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 {
     public partial class FormIndexes : Form
     {
+        private List<Index> indexes;
         private TreeNodeType backWorkerFlag;
         private readonly BackgroundWorker backgroundWorker;
         public FormIndexes()
@@ -164,6 +165,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 case TreeNodeType.Table:
                     treeNode = e.Argument as TreeNode;
                     GetTables(treeNode);
+                    GetIndexes(treeNode);
                     break;
                 case TreeNodeType.Index:
                     break;
@@ -175,6 +177,14 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             toolStripProgressBarStatus.StartStopMarque();
+        }
+
+        private void GetIndexes(TreeNode treeNode)
+        {
+            IndexManager indexManager = new IndexManager(treeNode.Name);
+            indexes = indexManager.GetIndexes();
+            indexBindingSource.DataSource = indexes;
+            dataGridViewIndexes.Refresh();
         }
     }
 }

@@ -60,5 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ServerProperties.sql" />
+    <None Include="Scripts\Indexes.sql" />
   </ItemGroup>
 </Project>
