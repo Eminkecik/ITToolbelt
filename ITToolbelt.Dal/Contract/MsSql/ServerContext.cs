@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
@@ -6,6 +7,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
     {
         public ServerContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
+            
         }
     }
 }

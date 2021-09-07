@@ -46,7 +46,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                     Text = connection.Name,
                     Tag = TreeNodeType.Connection
                 };
-
+                if (connection.ConnectionInfo == "Failed")
+                {
+                    treeNode.BackColor = Color.Red;
+                }
                 treeViewConnections.Invoke(
                     new Action(delegate
                     {
@@ -58,7 +61,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void treeViewConnections_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode treeNode = e.Node;
-            if (treeNode == null || treeNode.Tag == null)
+            if (treeNode == null || treeNode.Tag == null || treeNode.BackColor == Color.Red)
             {
                 return;
             }
@@ -183,10 +186,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void GetIndexes(TreeNode treeNode)
         {
-            if (treeNode.BackColor == Color.Red)
-            {
-                return;
-            }
+            //if (treeNode.BackColor == Color.Red)
+            //{
+            //    return;
+            //}
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
 
