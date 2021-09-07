@@ -274,10 +274,8 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
             foreach (Column column in columns.Where(c => !c.IsInclude))
             {
-                
-                    ListViewItem listViewItem = new ListViewItem(column.ColumnName);
-                    listViewItem.SubItems.Add(column.SortType);
-                    listViewColumns.Items.Add(listViewItem);
+                string[] row = { column.ColumnName, column.SortType };
+                    listViewColumns.Items.Add(new ListViewItem(row));
             }
 
             foreach (Column column in columns.Where(c => c.IsInclude))
