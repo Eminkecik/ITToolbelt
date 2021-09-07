@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using ITToolbelt.WinForms.InfoForms;
 
 namespace ITToolbelt.WinForms.ExtensionMethods
 {
