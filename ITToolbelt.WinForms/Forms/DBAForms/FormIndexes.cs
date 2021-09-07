@@ -190,7 +190,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
             indexBindingSource.DataSource = indexes;
-            dataGridViewIndexes.Refresh();
+           // dataGridViewIndexes.Refresh();
         }
 
         private void dataGridViewIndexes_DataError(object sender, DataGridViewDataErrorEventArgs e)
