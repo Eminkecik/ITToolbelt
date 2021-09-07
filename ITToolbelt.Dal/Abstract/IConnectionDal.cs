@@ -9,5 +9,6 @@ namespace ITToolbelt.Dal.Abstract
         bool AddConnection(Connection connection);
         List<Connection> GetConnections(bool updateFromServer);
         List<Database> GetDatabases();
+        List<Table> GetTables();
     }
 }

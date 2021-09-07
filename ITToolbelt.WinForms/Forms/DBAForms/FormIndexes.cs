@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -74,6 +75,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                     toolStripProgressBarStatus.StartStopMarque();
                     backgroundWorker.RunWorkerAsync(argument: treeNode);
                     break;
+                case TreeNodeType.Database:
+                    backWorkerFlag = TreeNodeType.Table;
+                    toolStripProgressBarStatus.StartStopMarque();
+                    backgroundWorker.RunWorkerAsync(argument: treeNode);
+                    break;
                 case TreeNodeType.Table:
                     break;
                 case TreeNodeType.Index:
@@ -98,9 +104,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
                     foreach (Database database in databases)
                     {
+                        SqlConnectionStringBuilder connectionStringBuilder = new SqlConnectionStringBuilder(treeNode.Name)
+                        {
+                            InitialCatalog = database.Name
+                        };
                         TreeNode dbNode = new TreeNode
                         {
-                            Name = database.Id.ToString(),
+                            Name = connectionStringBuilder.ConnectionString,
                             Text = database.Name,
                             Tag = TreeNodeType.Database
                         };
@@ -111,18 +121,49 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 }));
         }
 
+        private void GetTables(TreeNode treeNode)
+        {
+            ConnectionManager connectionManager = new ConnectionManager(treeNode.Name);
+            List<Table> tables = connectionManager.GetTables();
+
+            treeViewConnections.Invoke(
+                new Action(delegate
+                {
+                    if (tables.Count > 0)
+                    {
+                        treeNode.Nodes.Clear();
+                    }
+
+                    foreach (Table table in tables)
+                    {
+                        TreeNode dbNode = new TreeNode
+                        {
+                            Name = table.TableName,
+                            Text = $"[{table.SchemaName}].[{table.TableName}]",
+                            Tag = TreeNodeType.Table
+                        };
+                        treeNode.Nodes.Add(dbNode);
+                    }
+
+                    treeNode.Expand();
+                }));
+        }
+
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            TreeNode treeNode;
             switch (backWorkerFlag)
             {
                 case TreeNodeType.Connection:
                     RefreshConnections();
                     break;
                 case TreeNodeType.Database:
-                    TreeNode treeNode = e.Argument as TreeNode;
+                    treeNode = e.Argument as TreeNode;
                     GetDatabases(treeNode);
                     break;
                 case TreeNodeType.Table:
+                    treeNode = e.Argument as TreeNode;
+                    GetTables(treeNode);
                     break;
                 case TreeNodeType.Index:
                     break;

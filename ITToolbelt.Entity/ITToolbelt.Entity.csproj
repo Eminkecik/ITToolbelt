@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Db\Connection.cs" />
     <Compile Include="EntityClass\Database.cs" />
+    <Compile Include="EntityClass\Table.cs" />
     <Compile Include="Enum\DbServerType.cs" />
     <Compile Include="Enum\TreeNodeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -35,5 +35,10 @@ namespace ITToolbelt.Bll.Managers
             List<Database> databases = iConnectionDal.GetDatabases();
             return databases;
         }
+        public List<Table> GetTables()
+        {
+            List<Table> tables = iConnectionDal.GetTables();
+            return tables;
+        }
     }
 }
