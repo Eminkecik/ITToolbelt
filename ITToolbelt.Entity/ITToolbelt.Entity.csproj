@@ -52,12 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\Connection.cs" />
+    <Compile Include="EntityClass\Database.cs" />
     <Compile Include="Enum\DbServerType.cs" />
+    <Compile Include="Enum\TreeNodeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EntityClass\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

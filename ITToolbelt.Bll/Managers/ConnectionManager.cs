@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Dal.Contract.MsSql;
 using ITToolbelt.Entity.Db;
+using ITToolbelt.Entity.EntityClass;
 
 namespace ITToolbelt.Bll.Managers
 {
@@ -27,6 +28,12 @@ namespace ITToolbelt.Bll.Managers
         {
             List<Connection> connections = iConnectionDal.GetConnections(updateFromServer);
             return connections;
+        }
+
+        public List<Database> GetDatabases()
+        {
+            List<Database> databases = iConnectionDal.GetDatabases();
+            return databases;
         }
     }
 }

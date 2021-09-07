@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ITToolbelt.Entity.Db;
+using ITToolbelt.Entity.EntityClass;
 
 namespace ITToolbelt.Dal.Abstract
 {
@@ -7,5 +8,6 @@ namespace ITToolbelt.Dal.Abstract
     {
         bool AddConnection(Connection connection);
         List<Connection> GetConnections(bool updateFromServer);
+        List<Database> GetDatabases();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Entity.Db;
 using Microsoft.SqlServer.Management.Smo;
+using Database = ITToolbelt.Entity.EntityClass.Database;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
@@ -75,6 +76,16 @@ namespace ITToolbelt.Dal.Contract.MsSql
             }
 
             return connections;
+        }
+
+        public List<Database> GetDatabases()
+        {
+            using (ServerContext serverContext = new ServerContext(ConnectionString))
+            {
+                List<Database> databases = serverContext.Database.SqlQuery<Database>("select database_id as Id, name as Name from sys.databases")
+                    .ToList();
+                return databases;
+            }
         }
     }
 }

@@ -33,5 +33,11 @@ namespace ITToolbelt.WinForms.Forms.MainAppForms
                 existForm.BringToFront();
             }
         }
+
+        private void indexToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Form form = new FormIndexes();
+            OpenForm(form);
+        }
     }
 }
