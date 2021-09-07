@@ -42,7 +42,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 {
                     Name = connection.ConnectionString,
                     Text = connection.Name,
-                    Tag = TreeNodeType.Database
+                    Tag = TreeNodeType.Connection
                 };
 
                 treeViewConnections.Invoke(
@@ -69,7 +69,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
             switch (treeNodeType)
             {
-                case TreeNodeType.Database:
+                case TreeNodeType.Connection:
                     backWorkerFlag = TreeNodeType.Database;
                     toolStripProgressBarStatus.StartStopMarque();
                     backgroundWorker.RunWorkerAsync(argument: treeNode);
@@ -98,7 +98,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
                     foreach (Database database in databases)
                     {
-                        treeNode.Nodes.Add(database.Id.ToString(), database.Name);
+                        TreeNode dbNode = new TreeNode
+                        {
+                            Name = database.Id.ToString(),
+                            Text = database.Name,
+                            Tag = TreeNodeType.Database
+                        };
+                        treeNode.Nodes.Add(dbNode);
                     }
 
                     treeNode.Expand();
