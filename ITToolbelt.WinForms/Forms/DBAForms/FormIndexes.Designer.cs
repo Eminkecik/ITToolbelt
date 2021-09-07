@@ -37,18 +37,22 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewIndexes = new System.Windows.Forms.DataGridView();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBarStatus = new System.Windows.Forms.ToolStripProgressBar();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.groupBoxIndex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIndexes)).BeginInit();
             this.statusStrip.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewConnections
             // 
-            this.treeViewConnections.Dock = System.Windows.Forms.DockStyle.Left;
-            this.treeViewConnections.Location = new System.Drawing.Point(0, 0);
+            this.treeViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewConnections.Location = new System.Drawing.Point(3, 16);
             this.treeViewConnections.Name = "treeViewConnections";
-            this.treeViewConnections.Size = new System.Drawing.Size(195, 637);
+            this.treeViewConnections.Size = new System.Drawing.Size(256, 618);
             this.treeViewConnections.TabIndex = 0;
             this.treeViewConnections.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewConnections_NodeMouseDoubleClick);
             // 
@@ -56,16 +60,16 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(195, 0);
+            this.panel1.Location = new System.Drawing.Point(262, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(804, 99);
+            this.panel1.Size = new System.Drawing.Size(737, 99);
             this.panel1.TabIndex = 1;
             // 
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
-            this.buttonRefresh.Location = new System.Drawing.Point(717, 12);
+            this.buttonRefresh.Location = new System.Drawing.Point(650, 12);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
             this.buttonRefresh.TabIndex = 0;
@@ -77,9 +81,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.groupBoxIndex.Controls.Add(this.dataGridViewIndexes);
             this.groupBoxIndex.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxIndex.Location = new System.Drawing.Point(195, 99);
+            this.groupBoxIndex.Location = new System.Drawing.Point(262, 99);
             this.groupBoxIndex.Name = "groupBoxIndex";
-            this.groupBoxIndex.Size = new System.Drawing.Size(804, 538);
+            this.groupBoxIndex.Size = new System.Drawing.Size(737, 516);
             this.groupBoxIndex.TabIndex = 2;
             this.groupBoxIndex.TabStop = false;
             this.groupBoxIndex.Text = "Indexes";
@@ -94,16 +98,16 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewIndexes.Location = new System.Drawing.Point(3, 16);
             this.dataGridViewIndexes.Name = "dataGridViewIndexes";
             this.dataGridViewIndexes.ReadOnly = true;
-            this.dataGridViewIndexes.Size = new System.Drawing.Size(798, 519);
+            this.dataGridViewIndexes.Size = new System.Drawing.Size(731, 497);
             this.dataGridViewIndexes.TabIndex = 0;
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarStatus});
-            this.statusStrip.Location = new System.Drawing.Point(195, 615);
+            this.statusStrip.Location = new System.Drawing.Point(262, 615);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(804, 22);
+            this.statusStrip.Size = new System.Drawing.Size(737, 22);
             this.statusStrip.TabIndex = 3;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -112,15 +116,36 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.toolStripProgressBarStatus.Name = "toolStripProgressBarStatus";
             this.toolStripProgressBarStatus.Size = new System.Drawing.Size(100, 16);
             // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(262, 637);
+            this.panel2.TabIndex = 4;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.treeViewConnections);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(262, 637);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Connections";
+            // 
             // FormIndexes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 637);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.groupBoxIndex);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.treeViewConnections);
+            this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -131,6 +156,8 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIndexes)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +172,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridView dataGridViewIndexes;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarStatus;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
