@@ -166,6 +166,7 @@
     <None Include="Resources\refresh.png" />
     <None Include="Resources\edit_page.png" />
     <None Include="Resources\accept.png" />
+    <None Include="Resources\block.png" />
     <Content Include="toolbox.ico" />
   </ItemGroup>
   <ItemGroup>

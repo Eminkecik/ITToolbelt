@@ -13,10 +13,13 @@ namespace ITToolbelt.Entity.EntityClass
         [DisplayName("Index Name")]
         public string IndexName { get; set; }
 
+        [DisplayName("State")]
+        public string State { get; set; }
+
         [DisplayName("AVG Fragmantation")]
-        public double Fragmantation { get; set; }
+        public double? Fragmantation { get; set; }
 
         [DisplayName("Page Count")]
-        public long PageCount { get; set; }
+        public long? PageCount { get; set; }
     }
 }

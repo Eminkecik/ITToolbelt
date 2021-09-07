@@ -6,5 +6,6 @@ namespace ITToolbelt.Dal.Abstract
     public interface IIndexDal
     {
         List<Index> GetIndexes();
+        bool SetDisable(Index index);
     }
 }

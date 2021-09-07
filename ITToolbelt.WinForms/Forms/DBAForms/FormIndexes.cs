@@ -21,6 +21,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private List<Index> indexes;
         private TreeNodeType backWorkerFlag;
         private readonly BackgroundWorker backgroundWorker;
+        private TreeNode activeDatabaseNode;
         public FormIndexes()
         {
             InitializeComponent();
@@ -60,6 +61,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void treeViewConnections_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            activeDatabaseNode = null;
             TreeNode treeNode = e.Node;
             if (treeNode == null || treeNode.Tag == null || treeNode.BackColor == Color.Red)
             {
@@ -186,10 +188,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void GetIndexes(TreeNode treeNode)
         {
-            //if (treeNode.BackColor == Color.Red)
-            //{
-            //    return;
-            //}
+            activeDatabaseNode = treeNode;
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
 
@@ -212,6 +211,54 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void dataGridViewIndexes_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void dataGridViewIndexes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewIndexes.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            foreach (DataGridViewRow selectedRow in dataGridViewIndexes.SelectedRows)
+            {
+                Index index = selectedRow.DataBoundItem as Index;
+                if (index.State == "ENABLED")
+                {
+                    buttonDisable.Enabled = true;
+                    return;
+                }
+            }
+
+            buttonDisable.Enabled = false;
+        }
+
+        private void buttonDisable_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewIndexes.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            IndexManager indexManager = new IndexManager(activeDatabaseNode.Name);
+            List<Index> selectedIndexes = new List<Index>();
+            foreach (DataGridViewRow selectedRow in dataGridViewIndexes.SelectedRows)
+            {
+                Index index = selectedRow.DataBoundItem as Index;
+                selectedIndexes.Add(index);
+            }
+
+            List<Index> setIndexes = indexManager.SetDisable(selectedIndexes);
+
+            List<Index> indices = setIndexes.Where(s => s.State == "ENABLED").ToList();
+            if (indices.Count == 0)
+            {
+                MessageBox.Show("All indexes are disabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error while deactivating some indexes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

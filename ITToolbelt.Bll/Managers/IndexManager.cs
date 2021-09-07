@@ -19,5 +19,16 @@ namespace ITToolbelt.Bll.Managers
             List<Index> indexes = iIndexDal.GetIndexes();
             return indexes;
         }
+
+        public List<Index> SetDisable(List<Index> indexes)
+        {
+            foreach (Index index in indexes)
+            {
+                bool disable = iIndexDal.SetDisable(index);
+                index.State = disable ? "DISABLED" : "ENABLED";
+            }
+
+            return indexes;
+        }
     }
 }
