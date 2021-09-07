@@ -145,8 +145,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                         };
                         treeNode.Nodes.Add(dbNode);
                     }
-
-                    treeNode.Expand();
                 }));
         }
 
