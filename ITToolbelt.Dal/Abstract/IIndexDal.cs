@@ -7,5 +7,6 @@ namespace ITToolbelt.Dal.Abstract
     {
         List<Index> GetIndexes();
         bool SetDisable(Index index);
+        List<Column> GetColumns(Index index);
     }
 }

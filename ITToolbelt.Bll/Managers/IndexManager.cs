@@ -30,5 +30,11 @@ namespace ITToolbelt.Bll.Managers
 
             return indexes;
         }
+
+        public List<Column> GetColumns(Index index)
+        {
+            List<Column> columns = iIndexDal.GetColumns(index);
+            return columns;
+        }
     }
 }

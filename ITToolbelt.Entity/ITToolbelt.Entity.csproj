@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\Connection.cs" />
+    <Compile Include="EntityClass\Column.cs" />
     <Compile Include="EntityClass\Database.cs" />
     <Compile Include="EntityClass\Index.cs" />
     <Compile Include="EntityClass\Table.cs" />

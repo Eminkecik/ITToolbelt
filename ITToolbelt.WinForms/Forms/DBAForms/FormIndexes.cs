@@ -260,5 +260,31 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 MessageBox.Show("Error while deactivating some indexes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void buttonGetColumns_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewIndexes.SelectedRows.Count != 1 && dataGridViewIndexes.SelectedRows[0].Index < 0)
+            {
+                return;
+            }
+
+            Index index = dataGridViewIndexes.SelectedRows[0].DataBoundItem as Index;
+            IndexManager indexManager = new IndexManager(activeDatabaseNode.Name);
+            List<Column> columns = indexManager.GetColumns(index);
+
+            foreach (Column column in columns.Where(c => !c.IsInclude))
+            {
+                
+                    ListViewItem listViewItem = new ListViewItem(column.ColumnName);
+                    listViewItem.SubItems.Add(column.SortType);
+                    listViewColumns.Items.Add(listViewItem);
+            }
+
+            foreach (Column column in columns.Where(c => c.IsInclude))
+            {
+                string[] columnStrings = new[] { column.ColumnName};
+                listViewIncludes.Items.Add(new ListViewItem(columnStrings));
+            }
+        }
     }
 }

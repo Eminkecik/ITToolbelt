@@ -39,21 +39,32 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.toolStripProgressBarStatus = new System.Windows.Forms.ToolStripProgressBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxColumns = new System.Windows.Forms.GroupBox();
+            this.groupBoxIndexColumns = new System.Windows.Forms.GroupBox();
+            this.groupBoxInclude = new System.Windows.Forms.GroupBox();
+            this.listViewColumns = new System.Windows.Forms.ListView();
+            this.listViewIncludes = new System.Windows.Forms.ListView();
+            this.buttonGetColumns = new System.Windows.Forms.Button();
             this.buttonDisable = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.indexBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.schemaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ındexNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fragmantationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.indexBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnHeaderColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Sort = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.groupBoxIndex.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIndexes)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBoxColumns.SuspendLayout();
+            this.groupBoxIndexColumns.SuspendLayout();
+            this.groupBoxInclude.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,18 +73,19 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.treeViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewConnections.Location = new System.Drawing.Point(3, 16);
             this.treeViewConnections.Name = "treeViewConnections";
-            this.treeViewConnections.Size = new System.Drawing.Size(256, 618);
+            this.treeViewConnections.Size = new System.Drawing.Size(256, 676);
             this.treeViewConnections.TabIndex = 0;
             this.treeViewConnections.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewConnections_NodeMouseDoubleClick);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonGetColumns);
             this.panel1.Controls.Add(this.buttonDisable);
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(262, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(737, 99);
+            this.panel1.Size = new System.Drawing.Size(883, 99);
             this.panel1.TabIndex = 1;
             // 
             // groupBoxIndex
@@ -82,7 +94,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.groupBoxIndex.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxIndex.Location = new System.Drawing.Point(262, 99);
             this.groupBoxIndex.Name = "groupBoxIndex";
-            this.groupBoxIndex.Size = new System.Drawing.Size(737, 516);
+            this.groupBoxIndex.Size = new System.Drawing.Size(635, 574);
             this.groupBoxIndex.TabIndex = 2;
             this.groupBoxIndex.TabStop = false;
             this.groupBoxIndex.Text = "Indexes";
@@ -106,7 +118,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dataGridViewIndexes.Location = new System.Drawing.Point(3, 16);
             this.dataGridViewIndexes.Name = "dataGridViewIndexes";
             this.dataGridViewIndexes.ReadOnly = true;
-            this.dataGridViewIndexes.Size = new System.Drawing.Size(731, 497);
+            this.dataGridViewIndexes.Size = new System.Drawing.Size(629, 555);
             this.dataGridViewIndexes.TabIndex = 0;
             this.dataGridViewIndexes.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewIndexes_DataError);
             this.dataGridViewIndexes.SelectionChanged += new System.EventHandler(this.dataGridViewIndexes_SelectionChanged);
@@ -115,9 +127,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarStatus});
-            this.statusStrip.Location = new System.Drawing.Point(262, 615);
+            this.statusStrip.Location = new System.Drawing.Point(262, 673);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(737, 22);
+            this.statusStrip.Size = new System.Drawing.Size(883, 22);
             this.statusStrip.TabIndex = 3;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -133,7 +145,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(262, 637);
+            this.panel2.Size = new System.Drawing.Size(262, 695);
             this.panel2.TabIndex = 4;
             // 
             // groupBox1
@@ -142,10 +154,79 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(262, 637);
+            this.groupBox1.Size = new System.Drawing.Size(262, 695);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connections";
+            // 
+            // groupBoxColumns
+            // 
+            this.groupBoxColumns.Controls.Add(this.groupBoxInclude);
+            this.groupBoxColumns.Controls.Add(this.groupBoxIndexColumns);
+            this.groupBoxColumns.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBoxColumns.Location = new System.Drawing.Point(897, 99);
+            this.groupBoxColumns.Name = "groupBoxColumns";
+            this.groupBoxColumns.Size = new System.Drawing.Size(248, 574);
+            this.groupBoxColumns.TabIndex = 5;
+            this.groupBoxColumns.TabStop = false;
+            this.groupBoxColumns.Text = "Index Columns";
+            // 
+            // groupBoxIndexColumns
+            // 
+            this.groupBoxIndexColumns.Controls.Add(this.listViewColumns);
+            this.groupBoxIndexColumns.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxIndexColumns.Location = new System.Drawing.Point(3, 16);
+            this.groupBoxIndexColumns.Name = "groupBoxIndexColumns";
+            this.groupBoxIndexColumns.Size = new System.Drawing.Size(242, 334);
+            this.groupBoxIndexColumns.TabIndex = 0;
+            this.groupBoxIndexColumns.TabStop = false;
+            this.groupBoxIndexColumns.Text = "Columns";
+            // 
+            // groupBoxInclude
+            // 
+            this.groupBoxInclude.Controls.Add(this.listViewIncludes);
+            this.groupBoxInclude.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxInclude.Location = new System.Drawing.Point(3, 350);
+            this.groupBoxInclude.Name = "groupBoxInclude";
+            this.groupBoxInclude.Size = new System.Drawing.Size(242, 221);
+            this.groupBoxInclude.TabIndex = 1;
+            this.groupBoxInclude.TabStop = false;
+            this.groupBoxInclude.Text = "Include Columns";
+            // 
+            // listViewColumns
+            // 
+            this.listViewColumns.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderColumn,
+            this.Sort});
+            this.listViewColumns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewColumns.HideSelection = false;
+            this.listViewColumns.Location = new System.Drawing.Point(3, 16);
+            this.listViewColumns.Name = "listViewColumns";
+            this.listViewColumns.Size = new System.Drawing.Size(236, 315);
+            this.listViewColumns.TabIndex = 0;
+            this.listViewColumns.UseCompatibleStateImageBehavior = false;
+            // 
+            // listViewIncludes
+            // 
+            this.listViewIncludes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewIncludes.HideSelection = false;
+            this.listViewIncludes.Location = new System.Drawing.Point(3, 16);
+            this.listViewIncludes.Name = "listViewIncludes";
+            this.listViewIncludes.Size = new System.Drawing.Size(236, 202);
+            this.listViewIncludes.TabIndex = 0;
+            this.listViewIncludes.UseCompatibleStateImageBehavior = false;
+            // 
+            // buttonGetColumns
+            // 
+            this.buttonGetColumns.Image = global::ITToolbelt.WinForms.Properties.Resources.key;
+            this.buttonGetColumns.Location = new System.Drawing.Point(93, 12);
+            this.buttonGetColumns.Name = "buttonGetColumns";
+            this.buttonGetColumns.Size = new System.Drawing.Size(75, 75);
+            this.buttonGetColumns.TabIndex = 1;
+            this.buttonGetColumns.Text = "GetColumns";
+            this.buttonGetColumns.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonGetColumns.UseVisualStyleBackColor = true;
+            this.buttonGetColumns.Click += new System.EventHandler(this.buttonGetColumns_Click);
             // 
             // buttonDisable
             // 
@@ -164,17 +245,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
-            this.buttonRefresh.Location = new System.Drawing.Point(650, 12);
+            this.buttonRefresh.Location = new System.Drawing.Point(796, 12);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
             this.buttonRefresh.TabIndex = 0;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonRefresh.UseVisualStyleBackColor = true;
-            // 
-            // indexBindingSource
-            // 
-            this.indexBindingSource.DataSource = typeof(ITToolbelt.Entity.EntityClass.Index);
             // 
             // schemaDataGridViewTextBoxColumn
             // 
@@ -218,14 +295,27 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.pageCountDataGridViewTextBoxColumn.Name = "pageCountDataGridViewTextBoxColumn";
             this.pageCountDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // indexBindingSource
+            // 
+            this.indexBindingSource.DataSource = typeof(ITToolbelt.Entity.EntityClass.Index);
+            // 
+            // columnHeaderColumn
+            // 
+            this.columnHeaderColumn.Text = "Column";
+            // 
+            // Sort
+            // 
+            this.Sort.Text = "Sort";
+            // 
             // FormIndexes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 637);
+            this.ClientSize = new System.Drawing.Size(1145, 695);
             this.Controls.Add(this.groupBoxIndex);
-            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.groupBoxColumns);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -239,6 +329,9 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.statusStrip.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBoxColumns.ResumeLayout(false);
+            this.groupBoxIndexColumns.ResumeLayout(false);
+            this.groupBoxInclude.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.indexBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -264,5 +357,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fragmantationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn pageCountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.GroupBox groupBoxColumns;
+        private System.Windows.Forms.GroupBox groupBoxInclude;
+        private System.Windows.Forms.ListView listViewIncludes;
+        private System.Windows.Forms.GroupBox groupBoxIndexColumns;
+        private System.Windows.Forms.ListView listViewColumns;
+        private System.Windows.Forms.Button buttonGetColumns;
+        private System.Windows.Forms.ColumnHeader columnHeaderColumn;
+        private System.Windows.Forms.ColumnHeader Sort;
     }
 }
