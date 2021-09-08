@@ -171,7 +171,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                     break;
                 case TreeNodeType.Table:
                     treeNode = e.Argument as TreeNode;
-                   // GetTables(treeNode);
+                    // GetTables(treeNode);
                     GetIndexes(treeNode);
                     break;
                 case TreeNodeType.Index:
@@ -192,7 +192,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             IndexManager indexManager = new IndexManager(treeNode.Name);
             indexes = indexManager.GetIndexes();
 
-            
+
             if (dataGridViewIndexes.InvokeRequired)
             {
                 dataGridViewIndexes.Invoke(new Action(delegate
@@ -272,15 +272,18 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             IndexManager indexManager = new IndexManager(activeDatabaseNode.Name);
             List<Column> columns = indexManager.GetColumns(index);
 
+
+            listViewColumns.Items.Clear();
+            listViewIncludes.Items.Clear();
             foreach (Column column in columns.Where(c => !c.IsInclude))
             {
-                string[] row = { column.ColumnName, column.SortType };
-                    listViewColumns.Items.Add(new ListViewItem(row));
+                string[] row = { column.ColumnName, column.SortType, column.Type };
+                listViewColumns.Items.Add(new ListViewItem(row));
             }
 
             foreach (Column column in columns.Where(c => c.IsInclude))
             {
-                string[] columnStrings = new[] { column.ColumnName};
+                string[] columnStrings = new[] { column.ColumnName, column.Type };
                 listViewIncludes.Items.Add(new ListViewItem(columnStrings));
             }
         }
