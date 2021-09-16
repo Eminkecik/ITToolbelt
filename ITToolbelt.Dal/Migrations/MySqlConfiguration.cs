@@ -5,14 +5,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ITToolbelt.Dal.Contract.MsSql.ItToolbeltContext>
+    internal sealed class MySqlConfiguration : DbMigrationsConfiguration<ITToolbelt.Dal.Contract.MySql.ItToolbeltContextMySql>
     {
-        public Configuration()
+        public MySqlConfiguration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ITToolbelt.Dal.Contract.MsSql.ItToolbeltContext context)
+        protected override void Seed(ITToolbelt.Dal.Contract.MySql.ItToolbeltContextMySql context)
         {
             //  This method will be called after migrating to the latest version.
 
