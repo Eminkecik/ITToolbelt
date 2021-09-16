@@ -8,7 +8,9 @@ using Microsoft.SqlServer.Management.Smo;
 using Database = ITToolbelt.Entity.EntityClass.Database;
 using Table = ITToolbelt.Entity.EntityClass.Table;
 using ITToolbelt.Dal.Contract.Extensions;
+using ITToolbelt.Dal.Contract.MySql;
 using ITToolbelt.Entity.EntityClass;
+using ITToolbelt.Entity.Enum;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
@@ -18,7 +20,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
 
         public MsSqlConnectionDal(ConnectInfo connectInfo)
         {
-            ConnectInfo = ConnectInfo;
+            ConnectInfo = connectInfo;
         }
 
         public bool AddConnection(Connection connection)
@@ -44,35 +46,16 @@ namespace ITToolbelt.Dal.Contract.MsSql
                 }
                 foreach (Connection connection in connections)
                 {
-                    try
+                    switch (connection.DbServerTypeCode)
                     {
-                        using (DbContext msSqlServerContext = ExtensionMethods.GetServerContext(new ConnectInfo(connection.ConnectionString, connection.DbServerTypeCode)))
-                        {
-                            Connection conFromServer = msSqlServerContext.Database.SqlQuery<Connection>(
-                                    "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
-                                .FirstOrDefault();
-
-                            connection.MachineName = conFromServer.MachineName;
-                            connection.ServerName = conFromServer.ServerName;
-                            connection.Edition = conFromServer.Edition;
-                            connection.ProductLevel = conFromServer.ProductLevel;
-                            connection.ProductUpdateLevel = conFromServer.ProductUpdateLevel;
-                            connection.ProductVersion = conFromServer.ProductVersion;
-                            connection.Collation = conFromServer.Collation;
-                            connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
-                            connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
-                            connection.InstanceName = conFromServer.InstanceName;
-                            connection.ConnectionInfo = "Successful";
-
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        connection.ConnectionInfo = "Failed";
-                    }
-                    finally
-                    {
-                        connection.ModifiedDate = DateTime.Now;
+                        case DbServerType.MsSql:
+                            GetServerProperties(connection);
+                            break;
+                        case DbServerType.MySql:
+                            MySqlConnectionDal.GetServerProperties(connection);
+                            break;
+                        default:
+                            break;
                     }
                 }
 
@@ -80,6 +63,39 @@ namespace ITToolbelt.Dal.Contract.MsSql
             }
 
             return connections;
+        }
+
+        public static void GetServerProperties(Connection connection)
+        {
+            try
+            {
+                using (MsSqlServerContext msSqlServerContext =new MsSqlServerContext(connection.ConnectionString))
+                {
+                    Connection conFromServer = msSqlServerContext.Database.SqlQuery<Connection>(
+                            "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
+                        .FirstOrDefault();
+
+                    connection.MachineName = conFromServer.MachineName;
+                    connection.ServerName = conFromServer.ServerName;
+                    connection.Edition = conFromServer.Edition;
+                    connection.ProductLevel = conFromServer.ProductLevel;
+                    connection.ProductUpdateLevel = conFromServer.ProductUpdateLevel;
+                    connection.ProductVersion = conFromServer.ProductVersion;
+                    connection.Collation = conFromServer.Collation;
+                    connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
+                    connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
+                    connection.InstanceName = conFromServer.InstanceName;
+                    connection.ConnectionInfo = "Successful";
+                }
+            }
+            catch (Exception e)
+            {
+                connection.ConnectionInfo = "Failed";
+            }
+            finally
+            {
+                connection.ModifiedDate = DateTime.Now;
+            }
         }
 
         public List<Database> GetDatabases()
