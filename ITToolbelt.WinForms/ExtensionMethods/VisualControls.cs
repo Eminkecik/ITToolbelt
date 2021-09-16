@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using ITToolbelt.WinForms.InfoForms;
@@ -49,5 +52,25 @@ namespace ITToolbelt.WinForms.ExtensionMethods
             string path = Path.Combine(GlobalVariables.DocPath, $"{dataGridView.Tag}.xml");
             xElement.Save(path);
         }
+
+        public static void LoadGridColumnStatus(this DataGridView dataGridView)
+        {
+            string path = Path.Combine(GlobalVariables.DocPath, $"{dataGridView.Tag}.xml");
+            if (!File.Exists(path))
+            {
+                return;
+            }
+            XDocument xDocument = XDocument.Load(path);
+            IEnumerable<XElement> xElements = xDocument.Descendants("Columns");
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                IEnumerable<XAttribute> xAttributes = xElements.Elements("Column").FirstOrDefault(e => e.Attribute("name").Value == column.DataPropertyName)
+                    .Attributes();
+                column.DisplayIndex = Int32.Parse(xAttributes.FirstOrDefault(a => a.Name == "order").Value);
+                column.Visible = bool.Parse(xAttributes.FirstOrDefault(a => a.Name == "visible").Value);
+            }
+        }
+
     }
 }

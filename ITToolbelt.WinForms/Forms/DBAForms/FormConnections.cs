@@ -38,6 +38,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void FormConnections_Load(object sender, EventArgs e)
         {
+            dataGridViewConnections.LoadGridColumnStatus();
             getFromServer = false;
             toolStripProgressBarConnections.StartStopMarque();
             backgroundWorker.RunWorkerAsync();
@@ -86,6 +87,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             DataGridViewColumnCollection dataGridViewColumnCollection = dataGridViewConnections.Columns;
             FormGridColumnSelection formGridColumnSelection = new FormGridColumnSelection(dataGridViewColumnCollection);
             formGridColumnSelection.ShowDialog();
+        }
+
+        private void FormConnections_FormClosing(object sender, FormClosingEventArgs e)
+        {
             dataGridViewConnections.SaveGridColumnStatus();
         }
     }

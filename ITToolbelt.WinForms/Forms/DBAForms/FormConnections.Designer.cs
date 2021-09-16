@@ -323,6 +323,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.MinimizeBox = false;
             this.Name = "FormConnections";
             this.Text = "Connections";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormConnections_FormClosing);
             this.Load += new System.EventHandler(this.FormConnections_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxConnections.ResumeLayout(false);
