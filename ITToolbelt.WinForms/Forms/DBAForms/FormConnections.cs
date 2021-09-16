@@ -86,6 +86,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             DataGridViewColumnCollection dataGridViewColumnCollection = dataGridViewConnections.Columns;
             FormGridColumnSelection formGridColumnSelection = new FormGridColumnSelection(dataGridViewColumnCollection);
             formGridColumnSelection.ShowDialog();
+            dataGridViewConnections.SaveGridColumnStatus();
         }
     }
 }

@@ -32,11 +32,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnections));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBoxConnections = new System.Windows.Forms.GroupBox();
-            this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
             this.buttonColumnSelection = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.groupBoxConnections = new System.Windows.Forms.GroupBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBarConnections = new System.Windows.Forms.ToolStripProgressBar();
+            this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
             this.ıdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dbServerTypeCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,13 +58,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBarConnections = new System.Windows.Forms.ToolStripProgressBar();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,53 +75,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1050, 99);
             this.panel1.TabIndex = 0;
-            // 
-            // groupBoxConnections
-            // 
-            this.groupBoxConnections.Controls.Add(this.statusStrip1);
-            this.groupBoxConnections.Controls.Add(this.dataGridViewConnections);
-            this.groupBoxConnections.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxConnections.Location = new System.Drawing.Point(0, 99);
-            this.groupBoxConnections.Name = "groupBoxConnections";
-            this.groupBoxConnections.Size = new System.Drawing.Size(1050, 489);
-            this.groupBoxConnections.TabIndex = 1;
-            this.groupBoxConnections.TabStop = false;
-            this.groupBoxConnections.Text = "Connections";
-            // 
-            // dataGridViewConnections
-            // 
-            this.dataGridViewConnections.AllowUserToAddRows = false;
-            this.dataGridViewConnections.AllowUserToDeleteRows = false;
-            this.dataGridViewConnections.AllowUserToOrderColumns = true;
-            this.dataGridViewConnections.AutoGenerateColumns = false;
-            this.dataGridViewConnections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewConnections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ıdDataGridViewTextBoxColumn,
-            this.dbServerTypeCodeDataGridViewTextBoxColumn,
-            this.nameDataGridViewTextBoxColumn,
-            this.connectionStringDataGridViewTextBoxColumn,
-            this.createDateDataGridViewTextBoxColumn,
-            this.modifiedDateDataGridViewTextBoxColumn,
-            this.machineNameDataGridViewTextBoxColumn,
-            this.serverNameDataGridViewTextBoxColumn,
-            this.ınstanceNameDataGridViewTextBoxColumn,
-            this.editionDataGridViewTextBoxColumn,
-            this.productLevelDataGridViewTextBoxColumn,
-            this.productUpdateLevelDataGridViewTextBoxColumn,
-            this.productVersionDataGridViewTextBoxColumn,
-            this.collationDataGridViewTextBoxColumn,
-            this.productMajorVersionDataGridViewTextBoxColumn,
-            this.productMinorVersionDataGridViewTextBoxColumn,
-            this.dbServerTypeDataGridViewTextBoxColumn,
-            this.connectionInfoDataGridViewTextBoxColumn});
-            this.dataGridViewConnections.DataSource = this.connectionBindingSource;
-            this.dataGridViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewConnections.Location = new System.Drawing.Point(3, 16);
-            this.dataGridViewConnections.Name = "dataGridViewConnections";
-            this.dataGridViewConnections.ReadOnly = true;
-            this.dataGridViewConnections.Size = new System.Drawing.Size(1044, 470);
-            this.dataGridViewConnections.TabIndex = 0;
-            this.dataGridViewConnections.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewConnections_RowPrePaint);
             // 
             // buttonColumnSelection
             // 
@@ -163,6 +116,70 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // groupBoxConnections
+            // 
+            this.groupBoxConnections.Controls.Add(this.statusStrip1);
+            this.groupBoxConnections.Controls.Add(this.dataGridViewConnections);
+            this.groupBoxConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxConnections.Location = new System.Drawing.Point(0, 99);
+            this.groupBoxConnections.Name = "groupBoxConnections";
+            this.groupBoxConnections.Size = new System.Drawing.Size(1050, 489);
+            this.groupBoxConnections.TabIndex = 1;
+            this.groupBoxConnections.TabStop = false;
+            this.groupBoxConnections.Text = "Connections";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBarConnections});
+            this.statusStrip1.Location = new System.Drawing.Point(3, 464);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1044, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBarConnections
+            // 
+            this.toolStripProgressBarConnections.Name = "toolStripProgressBarConnections";
+            this.toolStripProgressBarConnections.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBarConnections.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            // 
+            // dataGridViewConnections
+            // 
+            this.dataGridViewConnections.AllowUserToAddRows = false;
+            this.dataGridViewConnections.AllowUserToDeleteRows = false;
+            this.dataGridViewConnections.AllowUserToOrderColumns = true;
+            this.dataGridViewConnections.AutoGenerateColumns = false;
+            this.dataGridViewConnections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewConnections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ıdDataGridViewTextBoxColumn,
+            this.dbServerTypeCodeDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.connectionStringDataGridViewTextBoxColumn,
+            this.createDateDataGridViewTextBoxColumn,
+            this.modifiedDateDataGridViewTextBoxColumn,
+            this.machineNameDataGridViewTextBoxColumn,
+            this.serverNameDataGridViewTextBoxColumn,
+            this.ınstanceNameDataGridViewTextBoxColumn,
+            this.editionDataGridViewTextBoxColumn,
+            this.productLevelDataGridViewTextBoxColumn,
+            this.productUpdateLevelDataGridViewTextBoxColumn,
+            this.productVersionDataGridViewTextBoxColumn,
+            this.collationDataGridViewTextBoxColumn,
+            this.productMajorVersionDataGridViewTextBoxColumn,
+            this.productMinorVersionDataGridViewTextBoxColumn,
+            this.dbServerTypeDataGridViewTextBoxColumn,
+            this.connectionInfoDataGridViewTextBoxColumn});
+            this.dataGridViewConnections.DataSource = this.connectionBindingSource;
+            this.dataGridViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewConnections.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewConnections.Name = "dataGridViewConnections";
+            this.dataGridViewConnections.ReadOnly = true;
+            this.dataGridViewConnections.Size = new System.Drawing.Size(1044, 470);
+            this.dataGridViewConnections.TabIndex = 0;
+            this.dataGridViewConnections.Tag = "D95F4EAE6C5946C98A1E34E717EEE2AA";
+            this.dataGridViewConnections.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewConnections_RowPrePaint);
             // 
             // ıdDataGridViewTextBoxColumn
             // 
@@ -294,22 +311,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBarConnections});
-            this.statusStrip1.Location = new System.Drawing.Point(3, 464);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1044, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripProgressBarConnections
-            // 
-            this.toolStripProgressBarConnections.Name = "toolStripProgressBarConnections";
-            this.toolStripProgressBarConnections.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressBarConnections.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            // 
             // FormConnections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,10 +327,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1.ResumeLayout(false);
             this.groupBoxConnections.ResumeLayout(false);
             this.groupBoxConnections.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
