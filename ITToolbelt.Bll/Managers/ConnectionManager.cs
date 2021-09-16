@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using ITToolbelt.Bll.ExternalLibraries;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Dal.Contract.MsSql;
 using ITToolbelt.Entity.Db;
 using ITToolbelt.Entity.EntityClass;
+using Ninject;
 
 namespace ITToolbelt.Bll.Managers
 {
@@ -11,9 +13,9 @@ namespace ITToolbelt.Bll.Managers
     {
         private IConnectionDal iConnectionDal;
 
-        public ConnectionManager(string connectionString)
+        public ConnectionManager(ConnectInfo connectInfo)
         {
-            iConnectionDal = new MsSqlConnectionDal(connectionString);
+            iConnectionDal  = new NinjectModules(connectInfo).StandartKernel.Get<IConnectionDal>();
         }
 
         public bool Add(Connection connection)

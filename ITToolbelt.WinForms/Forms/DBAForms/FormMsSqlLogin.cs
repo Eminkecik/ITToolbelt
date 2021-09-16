@@ -63,7 +63,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
                 Connection.Name = textBoxConName.Text;
                 Connection.ConnectionString = sqlConnectionString.ConnectionString;
-                ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
+                ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
                 SuccessFlag = connectionManager.Add(Connection);
                 
             }

@@ -36,7 +36,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void RefreshConnections()
         {
-            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
+            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
             List<Connection> connections = connectionManager.GetConnections(false);
 
             foreach (Connection connection in connections)
@@ -45,7 +45,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 {
                     Name = connection.ConnectionString,
                     Text = connection.Name,
-                    Tag = TreeNodeType.Connection
+                    Tag = new Tuple<TreeNodeType, DbServerType>(TreeNodeType.Connection, connection.DbServerTypeCode)
                 };
                 if (connection.ConnectionInfo == "Failed")
                 {
@@ -68,13 +68,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 return;
             }
 
-            TreeNodeType treeNodeType;
-            if (!Enum.TryParse(treeNode.Tag.ToString(), out treeNodeType))
+            Tuple<TreeNodeType, DbServerType> treeNodeTag = treeNode.Tag as Tuple<TreeNodeType, DbServerType>;
+            if (treeNodeTag == null)
             {
                 return;
             }
 
-            switch (treeNodeType)
+            switch (treeNodeTag.Item1)
             {
                 case TreeNodeType.Connection:
                     backWorkerFlag = TreeNodeType.Database;
@@ -97,7 +97,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void GetDatabases(TreeNode treeNode)
         {
-            ConnectionManager connectionManager = new ConnectionManager(treeNode.Name);
+            Tuple<TreeNodeType, DbServerType> treeNodeTag = treeNode.Tag as Tuple<TreeNodeType, DbServerType>;
+            if (treeNodeTag == null)
+            {
+                return;
+            }
+
+            ConnectionManager connectionManager = new ConnectionManager(new ConnectInfo(treeNode.Name, treeNodeTag.Item2));
             List<Database> databases = connectionManager.GetDatabases();
 
             treeViewConnections.Invoke(
@@ -133,7 +139,13 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void GetTables(TreeNode treeNode)
         {
-            ConnectionManager connectionManager = new ConnectionManager(treeNode.Name);
+            Tuple<TreeNodeType, DbServerType> treeNodeTag = treeNode.Tag as Tuple<TreeNodeType, DbServerType>;
+            if (treeNodeTag == null)
+            {
+                return;
+            }
+
+            ConnectionManager connectionManager = new ConnectionManager(new ConnectInfo(treeNode.Name, treeNodeTag.Item2));
             List<Table> tables = connectionManager.GetTables();
 
             treeViewConnections.Invoke(

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using ITToolbelt.Entity.EntityClass;
+using ITToolbelt.Entity.Enum;
 
 namespace ITToolbelt.WinForms
 {
@@ -9,7 +11,24 @@ namespace ITToolbelt.WinForms
         public static string DomainName => Environment.UserDomainName;
         public static string CurrentUser => Environment.UserName;
         public static string UserWithDomain => $"{DomainName}\\{CurrentUser}";
-        public static string ConnectionString => ConfigurationManager.ConnectionStrings["ItToolbeltContext"].ConnectionString;
+
+        public static DbServerType DbServerType
+        {
+            get
+        {
+            string serverType = ConfigurationManager.AppSettings["ServerType"];
+            DbServerType dbServerType = (DbServerType)Enum.Parse(typeof(DbServerType), serverType);
+            return dbServerType;
+        }
+        }
+        public static string ConnectionString
+        {
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings[DbServerType == DbServerType.MsSql ? "ItToolbeltContext" : "ItToolbeltContextMySql"].ConnectionString;
+                return connectionString;
+            }
+        }
 
         public static string DocPath
         {
@@ -26,6 +45,8 @@ namespace ITToolbelt.WinForms
                 return path;
             }
         }
+
+        public static ConnectInfo ConnectInfo => new ConnectInfo(ConnectionString, DbServerType);
     }
 
 }

@@ -46,7 +46,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
 
         private void RefreshData()
         {
-            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectionString);
+            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
             List<Connection> connections = connectionManager.GetConnections(getFromServer);
             connectionBindingSource.DataSource = connections;
         }
@@ -92,6 +92,19 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void FormConnections_FormClosing(object sender, FormClosingEventArgs e)
         {
             dataGridViewConnections.SaveGridColumnStatus();
+        }
+
+        private void buttonAddMySql_Click(object sender, EventArgs e)
+        {
+            FormMySqlLogin msSqlLogin = new FormMySqlLogin();
+            msSqlLogin.ShowDialog();
+
+            if (msSqlLogin.SuccessFlag)
+            {
+                getFromServer = true;
+                toolStripProgressBarConnections.StartStopMarque();
+                backgroundWorker.RunWorkerAsync();
+            }
         }
     }
 }
