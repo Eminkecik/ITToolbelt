@@ -262,13 +262,14 @@
   <ItemGroup>
     <Compile Include="Abstract\IConnectionDal.cs" />
     <Compile Include="Abstract\IIndexDal.cs" />
+    <Compile Include="Contract\Extensions\ExtensionMethods.cs" />
     <Compile Include="Contract\MsSql\ITToolbeltContext.cs" />
     <Compile Include="Contract\MsSql\MsSqlConnectionDal.cs" />
     <Compile Include="Contract\MsSql\MsSqlIndexDal.cs" />
-    <Compile Include="Contract\MsSql\ServerContext.cs" />
+    <Compile Include="Contract\MsSql\MsSqlServerContext.cs" />
     <Compile Include="Contract\MySql\ItToolbeltContextMySql.cs" />
     <Compile Include="Contract\MySql\MySqlConnectionDal.cs" />
-    <Compile Include="Contract\MySql\ServerContext.cs" />
+    <Compile Include="Contract\MySql\MySqlServerContext.cs" />
     <Compile Include="Migrations\MySqlConfiguration.cs" />
     <Compile Include="Migrations\MsSqlConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

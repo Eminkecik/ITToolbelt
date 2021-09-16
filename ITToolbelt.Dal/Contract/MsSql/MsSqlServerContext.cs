@@ -3,9 +3,9 @@ using System.Data.Entity.Infrastructure;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
-    public class ServerContext : DbContext
+    public class MsSqlServerContext : DbContext
     {
-        public ServerContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public MsSqlServerContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             
         }

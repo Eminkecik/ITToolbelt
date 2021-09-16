@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using ITToolbelt.Dal.Abstract;
+using ITToolbelt.Dal.Contract.Extensions;
 using ITToolbelt.Entity.Db;
 using ITToolbelt.Entity.EntityClass;
+using Database = ITToolbelt.Entity.EntityClass.Database;
 
 namespace ITToolbelt.Dal.Contract.MySql
 {
     public class MySqlConnectionDal : IConnectionDal
     {
-        public string ConnectionString { get; }
+        public ConnectInfo ConnectInfo { get; }
 
-        public MySqlConnectionDal(string connectionString)
+        public MySqlConnectionDal(ConnectInfo connectInfo)
         {
-            ConnectionString = connectionString;
+            ConnectInfo = connectInfo;
         }
         public bool AddConnection(Connection connection)
         {
-            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectionString))
+            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectInfo.ConnectionString))
             {
                 context.Connections.Add(connection);
                 return context.SaveChanges();
@@ -27,7 +30,7 @@ namespace ITToolbelt.Dal.Contract.MySql
         public List<Connection> GetConnections(bool updateFromServer)
         {
             List<Connection> connections;
-            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectionString))
+            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectInfo.ConnectionString))
             {
                 connections = context.Connections.ToList();
 
@@ -40,9 +43,9 @@ namespace ITToolbelt.Dal.Contract.MySql
                 {
                     try
                     {
-                        using (ServerContext serverContext = new ServerContext(connection.ConnectionString))
+                        using (DbContext mySqlServerContext = ExtensionMethods.GetServerContext(new ConnectInfo(connection.ConnectionString, connection.DbServerTypeCode)))
                         {
-                            Connection conFromServer = serverContext.Database.SqlQuery<Connection>(
+                            Connection conFromServer = mySqlServerContext.Database.SqlQuery<Connection>(
                                     "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
                                 .FirstOrDefault();
 
@@ -78,9 +81,9 @@ namespace ITToolbelt.Dal.Contract.MySql
 
         public List<Database> GetDatabases()
         {
-            using (ServerContext serverContext = new ServerContext(ConnectionString))
+            using (DbContext mySqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
             {
-                List<Database> databases = serverContext.Database.SqlQuery<Database>("select database_id as Id, name as Name, state as [State] from sys.databases")
+                List<Database> databases = mySqlServerContext.Database.SqlQuery<Database>("select database_id as Id, name as Name, state as [State] from sys.databases")
                     .ToList();
                 return databases;
             }
@@ -88,9 +91,9 @@ namespace ITToolbelt.Dal.Contract.MySql
 
         public List<Table> GetTables()
         {
-            using (ServerContext serverContext = new ServerContext(ConnectionString))
+            using (DbContext mySqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
             {
-                List<Table> tables = serverContext.Database.SqlQuery<Table>("select DB_ID() as DatabaseId, s.schema_id SchemaId, t.object_id TableId, DB_NAME() as DatabaseName ,s.name as SchemaName, t.name as TableName from sys.tables t join sys.schemas s on t.schema_id = s.schema_id where t.type = 'U'")
+                List<Table> tables = mySqlServerContext.Database.SqlQuery<Table>("select DB_ID() as DatabaseId, s.schema_id SchemaId, t.object_id TableId, DB_NAME() as DatabaseName ,s.name as SchemaName, t.name as TableName from sys.tables t join sys.schemas s on t.schema_id = s.schema_id where t.type = 'U'")
                     .ToList();
                 return tables;
             }

@@ -10,13 +10,11 @@ namespace ITToolbelt.Bll.ExternalLibraries
 {
     public class NinjectModules : NinjectModule
     {
-        private string ConnectionSting { get; }
-        private DbServerType DatabaseType;
+        private ConnectInfo connectInfo;
 
         public NinjectModules(ConnectInfo connectInfo)
         {
-            ConnectionSting = connectInfo.ConnectionString;
-            DatabaseType = connectInfo.DatabaseType;
+            this.connectInfo = connectInfo;
             StandartKernel = new StandardKernel();
             Load();
         }
@@ -24,7 +22,7 @@ namespace ITToolbelt.Bll.ExternalLibraries
         public IKernel StandartKernel { get; set; }
         public sealed override void Load()
         {
-            switch (DatabaseType)
+            switch (connectInfo.DatabaseType)
             {
                 case DbServerType.MsSql:
                     LoadMsSql();
@@ -39,11 +37,11 @@ namespace ITToolbelt.Bll.ExternalLibraries
 
         private void LoadMsSql()
         {
-            StandartKernel.Bind<IConnectionDal>().To<MsSqlConnectionDal>().WithConstructorArgument("connectionString", ConnectionSting);
+            StandartKernel.Bind<IConnectionDal>().To<MsSqlConnectionDal>().WithConstructorArgument("connectInfo", connectInfo);
         }
         private void LoadMySql()
         {
-            StandartKernel.Bind<IConnectionDal>().To<MySqlConnectionDal>().WithConstructorArgument("connectionString", ConnectionSting);
+            StandartKernel.Bind<IConnectionDal>().To<MySqlConnectionDal>().WithConstructorArgument("connectInfo", connectInfo);
         }
     }
 }

@@ -4,9 +4,9 @@ using MySql.Data.EntityFramework;
 namespace ITToolbelt.Dal.Contract.MySql
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class ServerContext : DbContext
+    public class MySqlServerContext : DbContext
     {
-        public ServerContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public MySqlServerContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
         }
     }
