@@ -1,5 +1,6 @@
 ﻿using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Dal.Contract.MsSql;
+using ITToolbelt.Dal.Contract.MySql;
 using ITToolbelt.Entity.EntityClass;
 using ITToolbelt.Entity.Enum;
 using Ninject;
@@ -42,7 +43,7 @@ namespace ITToolbelt.Bll.ExternalLibraries
         }
         private void LoadMySql()
         {
-            StandartKernel.Bind<IDepartmentDal>().To<MySqlDepartmentDal>().WithConstructorArgument("connectionString", ConnectionSting);
+            StandartKernel.Bind<IConnectionDal>().To<MySqlConnectionDal>().WithConstructorArgument("connectionString", ConnectionSting);
         }
     }
 }
