@@ -267,6 +267,7 @@
     <Compile Include="Contract\MsSql\MsSqlIndexDal.cs" />
     <Compile Include="Contract\MySql\ItToolbeltContextMySql.cs" />
     <Compile Include="Contract\MySql\MySqlConnectionDal.cs" />
+    <Compile Include="Contract\MySql\MySqlIndexDal.cs" />
     <Compile Include="Migrations\MySqlConfiguration.cs" />
     <Compile Include="Migrations\MsSqlConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
