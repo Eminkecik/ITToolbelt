@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using ITToolbelt.Dal.Abstract;
-using ITToolbelt.Dal.Contract.Extensions;
 using ITToolbelt.Dal.Contract.MsSql;
 using ITToolbelt.Entity.Db;
 using ITToolbelt.Entity.EntityClass;
 using ITToolbelt.Entity.Enum;
+using MySql.Data.MySqlClient;
 using Database = ITToolbelt.Entity.EntityClass.Database;
 
 namespace ITToolbelt.Dal.Contract.MySql
@@ -64,53 +65,127 @@ namespace ITToolbelt.Dal.Contract.MySql
 
         public static void GetServerProperties(Connection connection)
         {
-            try
+            using (MySqlConnection sqlConnection = new MySqlConnection(connection.ConnectionString))
             {
-                using (MySqlServerContext mySqlServerContext = new MySqlServerContext(connection.ConnectionString))
+                MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
+                sqlCommand.CommandText = "select @@hostname, @@hostname, @@version_comment, null ProductLevel, null ProductUpdateLevel, @@version, @@collation_server, null ProductMajorVersion, null ProductMinorVersion, null InstanceName";
+                sqlConnection.Open();
+                MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                while (sqlDataReader.Read())
                 {
-                    Connection conFromServer = mySqlServerContext.Database.SqlQuery<Connection>(
-                            "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
-                        .FirstOrDefault();
-
-                    connection.MachineName = conFromServer.MachineName;
-                    connection.ServerName = conFromServer.ServerName;
-                    connection.Edition = conFromServer.Edition;
-                    connection.ProductLevel = conFromServer.ProductLevel;
-                    connection.ProductUpdateLevel = conFromServer.ProductUpdateLevel;
-                    connection.ProductVersion = conFromServer.ProductVersion;
-                    connection.Collation = conFromServer.Collation;
-                    connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
-                    connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
-                    connection.InstanceName = conFromServer.InstanceName;
-                    connection.ConnectionInfo = "Successful";
+                    connection.MachineName = sqlDataReader.GetString(0);
+                    connection.ServerName = sqlDataReader.GetString(1);
+                    connection.Edition = sqlDataReader.GetString(2);
+                    connection.ProductLevel = sqlDataReader.GetString(3);
+                    connection.ProductUpdateLevel = sqlDataReader.GetString(4);
+                    connection.ProductVersion = sqlDataReader.GetString(5);
+                    connection.Collation = sqlDataReader.GetString(6);
+                    connection.ProductMajorVersion = sqlDataReader.GetString(7);
+                    connection.ProductMinorVersion = sqlDataReader.GetString(8);
+                    connection.InstanceName = sqlDataReader.GetString(9);
                 }
-            }
-            catch (Exception e)
-            {
-                connection.ConnectionInfo = "Failed";
-            }
-            finally
-            {
-                connection.ModifiedDate = DateTime.Now;
+
+
+                connection.ConnectionInfo = "Successful";
             }
         }
 
         public List<Database> GetDatabases()
         {
-            using (DbContext mySqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
+            List<Database> databases;
+            using (MySqlConnection mySqlConnection = new MySqlConnection(ConnectInfo.ConnectionString))
             {
-                List<Database> databases = mySqlServerContext.Database.SqlQuery<Database>("select database_id as Id, name as Name, state as [State] from sys.databases")
-                    .ToList();
+                MySqlCommand sqlCommand = new MySqlCommand { Connection = mySqlConnection };
+                sqlCommand.CommandText = "select 0, SCHEMA_NAME , 0 from information_schema.schemata";
+                try
+                {
+                    mySqlConnection.Open();
+                    MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        databases = new List<Database>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Database database = new Database
+                        {
+                            Id = sqlDataReader.GetInt32(0),
+                            Name = sqlDataReader.GetString(1),
+                            State = sqlDataReader.GetByte(2)
+                        };
+                        databases.Add(database);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (mySqlConnection.State != ConnectionState.Closed)
+                    {
+                        mySqlConnection.Close();
+                    }
+                }
+
                 return databases;
             }
         }
 
         public List<Table> GetTables()
         {
-            using (DbContext mySqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
+            List<Table> tables;
+            using (MySqlConnection mySqlConnection = new MySqlConnection(ConnectInfo.ConnectionString))
             {
-                List<Table> tables = mySqlServerContext.Database.SqlQuery<Table>("select DB_ID() as DatabaseId, s.schema_id SchemaId, t.object_id TableId, DB_NAME() as DatabaseName ,s.name as SchemaName, t.name as TableName from sys.tables t join sys.schemas s on t.schema_id = s.schema_id where t.type = 'U'")
-                    .ToList();
+                MySqlCommand sqlCommand = new MySqlCommand { Connection = mySqlConnection };
+                sqlCommand.CommandText = "select 0, 0, 0, TABLE_SCHEMA, null, TABLE_NAME from information_schema.tables where TABLE_SCHEMA = @dbName AND TABLE_TYPE = 'BASE TABLE'";
+                sqlCommand.Parameters.AddWithValue("@dbName", mySqlConnection.Database);
+                try
+                {
+                    mySqlConnection.Open();
+                    MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        tables = new List<Table>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Table database = new Table
+                        {
+                            DatabaseId = sqlDataReader.GetInt16(0),
+                            SchemaId = sqlDataReader.GetInt32(1),
+                            TableId = sqlDataReader.GetInt32(2),
+                            DatabaseName = sqlDataReader.GetString(3),
+                            SchemaName = sqlDataReader.GetString(4),
+                            TableName = sqlDataReader.GetString(5),
+                        };
+                        tables.Add(database);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (mySqlConnection.State != ConnectionState.Closed)
+                    {
+                        mySqlConnection.Close();
+                    }
+                }
+
                 return tables;
             }
         }

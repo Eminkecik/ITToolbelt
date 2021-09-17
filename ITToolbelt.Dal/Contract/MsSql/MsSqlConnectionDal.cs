@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data;
 using System.Linq;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Entity.Db;
-using Microsoft.SqlServer.Management.Smo;
 using Database = ITToolbelt.Entity.EntityClass.Database;
 using Table = ITToolbelt.Entity.EntityClass.Table;
-using ITToolbelt.Dal.Contract.Extensions;
 using ITToolbelt.Dal.Contract.MySql;
 using ITToolbelt.Entity.EntityClass;
 using ITToolbelt.Entity.Enum;
+using Microsoft.Data.SqlClient;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
@@ -69,22 +68,37 @@ namespace ITToolbelt.Dal.Contract.MsSql
         {
             try
             {
-                using (MsSqlServerContext msSqlServerContext =new MsSqlServerContext(connection.ConnectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(connection.ConnectionString))
                 {
-                    Connection conFromServer = msSqlServerContext.Database.SqlQuery<Connection>(
-                            "SELECT SERVERPROPERTY('MachineName') as MachineName, SERVERPROPERTY('ServerName') AS ServerName, SERVERPROPERTY('Edition') AS Edition, SERVERPROPERTY('ProductLevel') AS ProductLevel, SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, SERVERPROPERTY('ProductVersion') AS ProductVersion, SERVERPROPERTY('Collation') AS Collation, SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, SERVERPROPERTY('InstanceName') as InstanceName")
-                        .FirstOrDefault();
+                    SqlCommand sqlCommand = new SqlCommand { Connection = sqlConnection };
+                    sqlCommand.CommandText =
+                        "SELECT SERVERPROPERTY('MachineName') as MachineName," + //0
+                        "SERVERPROPERTY('ServerName') AS ServerName, " + //1
+                        "SERVERPROPERTY('Edition') AS Edition, " + //2
+                        "SERVERPROPERTY('ProductLevel') AS ProductLevel, " + //3
+                        "SERVERPROPERTY('ProductUpdateLevel') as ProductUpdateLevel, " + //4
+                        "SERVERPROPERTY('ProductVersion') AS ProductVersion, " + //5
+                        "SERVERPROPERTY('Collation') AS Collation, " + //6
+                        "SERVERPROPERTY('ProductMajorVersion') AS ProductMajorVersion, " + //7
+                        "SERVERPROPERTY('ProductMinorVersion') as ProductMinorVersion, " + //8
+                        "SERVERPROPERTY('InstanceName') as InstanceName";
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
+                    {
+                        connection.MachineName = sqlDataReader.GetString(0);
+                        connection.ServerName = sqlDataReader.GetString(1);
+                        connection.Edition = sqlDataReader.GetString(2);
+                        connection.ProductLevel = sqlDataReader.GetString(3);
+                        connection.ProductUpdateLevel = sqlDataReader.GetString(4);
+                        connection.ProductVersion = sqlDataReader.GetString(5);
+                        connection.Collation = sqlDataReader.GetString(6);
+                        connection.ProductMajorVersion = sqlDataReader.GetString(7);
+                        connection.ProductMinorVersion = sqlDataReader.GetString(8);
+                        connection.InstanceName = sqlDataReader.GetString(9);
+                    }
 
-                    connection.MachineName = conFromServer.MachineName;
-                    connection.ServerName = conFromServer.ServerName;
-                    connection.Edition = conFromServer.Edition;
-                    connection.ProductLevel = conFromServer.ProductLevel;
-                    connection.ProductUpdateLevel = conFromServer.ProductUpdateLevel;
-                    connection.ProductVersion = conFromServer.ProductVersion;
-                    connection.Collation = conFromServer.Collation;
-                    connection.ProductMajorVersion = conFromServer.ProductMajorVersion;
-                    connection.ProductMinorVersion = conFromServer.ProductMinorVersion;
-                    connection.InstanceName = conFromServer.InstanceName;
+
                     connection.ConnectionInfo = "Successful";
                 }
             }
@@ -100,22 +114,108 @@ namespace ITToolbelt.Dal.Contract.MsSql
 
         public List<Database> GetDatabases()
         {
-            using (DbContext msSqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
+            List<Database> databases;
+            using (SqlConnection msSqlServerContext = new SqlConnection(ConnectInfo.ConnectionString))
             {
-                List<Database> databases = msSqlServerContext.Database.SqlQuery<Database>("select database_id as Id, name as Name, state as [State] from sys.databases")
-                    .ToList();
+                SqlCommand sqlCommand = new SqlCommand { Connection = msSqlServerContext };
+                sqlCommand.CommandText = "select database_id as Id, name as Name, state as [State] from sys.databases";
+                try
+                {
+                    msSqlServerContext.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        databases = new List<Database>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Database database = new Database
+                        {
+                            Id = sqlDataReader.GetInt32(0),
+                            Name = sqlDataReader.GetString(1),
+                            State = sqlDataReader.GetByte(2)
+                        };
+                        databases.Add(database);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (msSqlServerContext.State != ConnectionState.Closed)
+                    {
+                        msSqlServerContext.Close();
+                    }
+                }
+
                 return databases;
             }
         }
 
         public List<Table> GetTables()
         {
-            using (DbContext msSqlServerContext = ExtensionMethods.GetServerContext(ConnectInfo))
+            List<Table> tables;
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectInfo.ConnectionString))
             {
-                List<Table> tables = msSqlServerContext.Database.SqlQuery<Table>("select DB_ID() as DatabaseId, s.schema_id SchemaId, t.object_id TableId, DB_NAME() as DatabaseName ,s.name as SchemaName, t.name as TableName from sys.tables t join sys.schemas s on t.schema_id = s.schema_id where t.type = 'U'")
-                    .ToList();
+                SqlCommand sqlCommand = new SqlCommand { Connection = sqlConnection };
+                sqlCommand.CommandText = "select DB_ID() as DatabaseId, " + //0
+                                         "s.schema_id SchemaId, " + //1
+                                         "t.object_id TableId, " + //2
+                                         "DB_NAME() as DatabaseName, " + //3
+                                         "s.name as SchemaName, " + //4
+                                         "t.name as TableName " + //5
+                                         "from sys.tables t join sys.schemas s on t.schema_id = s.schema_id where t.type = 'U'";
+                try
+                {
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        tables = new List<Table>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Table database = new Table
+                        {
+                            DatabaseId = sqlDataReader.GetInt16(0),
+                            SchemaId = sqlDataReader.GetInt32(1),
+                            TableId = sqlDataReader.GetInt32(2),
+                            DatabaseName = sqlDataReader.GetString(3),
+                            SchemaName = sqlDataReader.GetString(4),
+                            TableName = sqlDataReader.GetString(5),
+                        };
+                        tables.Add(database);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (sqlConnection.State != ConnectionState.Closed)
+                    {
+                        sqlConnection.Close();
+                    }
+                }
+
                 return tables;
             }
+            
         }
     }
 }
