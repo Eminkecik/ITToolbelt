@@ -23,12 +23,9 @@ namespace ITToolbelt.Dal.Contract.MySql
             using (MySqlConnection sqlConnection = new MySqlConnection(ConnectInfo.ConnectionString))
             {
                 MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
-                sqlCommand.CommandText = "select null 'Schema', " +
-                                         "TABLE_NAME, " +
+                sqlCommand.CommandText = "select distinct TABLE_NAME, " +
                                          "INDEX_NAME, " +
-                                         "IS_VISIBLE, " +
-                                         "null Fragmantation, " +
-                                         "null PageCount from INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = @dbName";
+                                         "IS_VISIBLE from INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = @dbName";
                 sqlCommand.Parameters.AddWithValue("@dbName", sqlConnection.Database);
 
                 try
@@ -48,12 +45,9 @@ namespace ITToolbelt.Dal.Contract.MySql
                     {
                         Index database = new Index
                         {
-                           // Schema = sqlDataReader.GetString(0),
-                            Table = sqlDataReader.GetString(1),
-                            IndexName = sqlDataReader.GetString(2),
-                            State = sqlDataReader.GetString(3),
-                           // Fragmantation = (double?)sqlDataReader.GetDouble(4),
-                           // PageCount = sqlDataReader.GetInt64(5)
+                            Table = sqlDataReader.GetString(0),
+                            IndexName = sqlDataReader.GetString(1),
+                            State = sqlDataReader.GetString(2)
                         };
                         indexes.Add(database);
                     }
