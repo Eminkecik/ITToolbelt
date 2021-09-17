@@ -9,18 +9,18 @@ namespace ITToolbelt.Dal.Contract.MySql
 {
     public class MySqlIndexDal : IIndexDal
     {
-        public string ConnectionString { get; }
+        public ConnectInfo ConnectInfo { get; }
 
-        public MySqlIndexDal(string connectionString)
+        public MySqlIndexDal(ConnectInfo connectInfo)
         {
-            ConnectionString = connectionString;
+            ConnectInfo = connectInfo;
         }
 
         public List<Index> GetIndexes()
         {
 
             List<Index> indexes;
-            using (MySqlConnection sqlConnection = new MySqlConnection(ConnectionString))
+            using (MySqlConnection sqlConnection = new MySqlConnection(ConnectInfo.ConnectionString))
             {
                 MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
                 sqlCommand.CommandText = "select null 'Schema', " +

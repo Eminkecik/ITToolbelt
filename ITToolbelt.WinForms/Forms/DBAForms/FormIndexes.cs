@@ -124,7 +124,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                         {
                             Name = connectionStringBuilder.ConnectionString,
                             Text = database.Name,
-                            Tag = TreeNodeType.Database
+                            Tag = new Tuple<TreeNodeType, DbServerType>(TreeNodeType.Database, treeNodeTag.Item2)
                         };
                         if (database.State > 0)
                         {
@@ -201,7 +201,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private void GetIndexes(TreeNode treeNode)
         {
             activeDatabaseNode = treeNode;
-            IndexManager indexManager = new IndexManager(treeNode.Name);
+            IndexManager indexManager = new IndexManager(new ConnectInfo(treeNode.Name, (treeNode.Tag as Tuple<TreeNodeType, DbServerType>).Item2));
             indexes = indexManager.GetIndexes();
 
 
@@ -252,7 +252,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 return;
             }
 
-            IndexManager indexManager = new IndexManager(activeDatabaseNode.Name);
+            IndexManager indexManager = new IndexManager(new ConnectInfo(activeDatabaseNode.Name, (activeDatabaseNode.Tag as Tuple<TreeNodeType, DbServerType>).Item2));
             List<Index> selectedIndexes = new List<Index>();
             foreach (DataGridViewRow selectedRow in dataGridViewIndexes.SelectedRows)
             {
@@ -281,7 +281,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             }
 
             Index index = dataGridViewIndexes.SelectedRows[0].DataBoundItem as Index;
-            IndexManager indexManager = new IndexManager(activeDatabaseNode.Name);
+            IndexManager indexManager = new IndexManager(new ConnectInfo(activeDatabaseNode.Name, (activeDatabaseNode.Tag as Tuple<TreeNodeType, DbServerType>).Item2));
             List<Column> columns = indexManager.GetColumns(index);
 
 

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using ITToolbelt.Bll.ExternalLibraries;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Dal.Contract.MsSql;
 using ITToolbelt.Entity.EntityClass;
+using Ninject;
 
 namespace ITToolbelt.Bll.Managers
 {
@@ -9,9 +11,9 @@ namespace ITToolbelt.Bll.Managers
     {
         private IIndexDal iIndexDal;
 
-        public IndexManager(string connectionString)
+        public IndexManager(ConnectInfo connectInfo)
         {
-            iIndexDal = new MsSqlIndexDal(connectionString);
+            iIndexDal = new NinjectModules(connectInfo).StandartKernel.Get<IIndexDal>();
         }
 
         public List<Index> GetIndexes()
