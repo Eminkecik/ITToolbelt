@@ -65,28 +65,39 @@ namespace ITToolbelt.Dal.Contract.MySql
 
         public static void GetServerProperties(Connection connection)
         {
-            using (MySqlConnection sqlConnection = new MySqlConnection(connection.ConnectionString))
+            try
             {
-                MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
-                sqlCommand.CommandText = "select @@hostname, @@hostname, @@version_comment, null ProductLevel, null ProductUpdateLevel, @@version, @@collation_server, null ProductMajorVersion, null ProductMinorVersion, null InstanceName";
-                sqlConnection.Open();
-                MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
+                using (MySqlConnection sqlConnection = new MySqlConnection(connection.ConnectionString))
                 {
-                    connection.MachineName = sqlDataReader.GetString(0);
-                    connection.ServerName = sqlDataReader.GetString(1);
-                    connection.Edition = sqlDataReader.GetString(2);
-                   // connection.ProductLevel = sqlDataReader.GetString(3);
-                   // connection.ProductUpdateLevel = sqlDataReader.GetString(4);
-                    connection.ProductVersion = sqlDataReader.GetString(5);
-                    connection.Collation = sqlDataReader.GetString(6);
-                   // connection.ProductMajorVersion = sqlDataReader.GetString(7);
-                   // connection.ProductMinorVersion = sqlDataReader.GetString(8);
-                   // connection.InstanceName = sqlDataReader.GetString(9);
+                    MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
+                    sqlCommand.CommandText = "select @@hostname, @@hostname, @@version_comment, null ProductLevel, null ProductUpdateLevel, @@version, @@collation_server, null ProductMajorVersion, null ProductMinorVersion, null InstanceName";
+                    sqlConnection.Open();
+                    MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    while (sqlDataReader.Read())
+                    {
+                        connection.MachineName = sqlDataReader.GetString(0);
+                        connection.ServerName = sqlDataReader.GetString(1);
+                        connection.Edition = sqlDataReader.GetString(2);
+                        // connection.ProductLevel = sqlDataReader.GetString(3);
+                        // connection.ProductUpdateLevel = sqlDataReader.GetString(4);
+                        connection.ProductVersion = sqlDataReader.GetString(5);
+                        connection.Collation = sqlDataReader.GetString(6);
+                        // connection.ProductMajorVersion = sqlDataReader.GetString(7);
+                        // connection.ProductMinorVersion = sqlDataReader.GetString(8);
+                        // connection.InstanceName = sqlDataReader.GetString(9);
+                    }
+
+
+                    connection.ConnectionInfo = "Success";
                 }
-
-
-                connection.ConnectionInfo = "Successful";
+            }
+            catch (Exception e)
+            {
+                connection.ConnectionInfo = "Failed";
+            }
+            finally
+            {
+                connection.ModifiedDate = DateTime.Now;
             }
         }
 

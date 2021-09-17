@@ -9,7 +9,7 @@ using Table = ITToolbelt.Entity.EntityClass.Table;
 using ITToolbelt.Dal.Contract.MySql;
 using ITToolbelt.Entity.EntityClass;
 using ITToolbelt.Entity.Enum;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
@@ -86,20 +86,30 @@ namespace ITToolbelt.Dal.Contract.MsSql
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                     while (sqlDataReader.Read())
                     {
-                        connection.MachineName = sqlDataReader.GetString(0);
-                        connection.ServerName = sqlDataReader.GetString(1);
-                        connection.Edition = sqlDataReader.GetString(2);
-                        connection.ProductLevel = sqlDataReader.GetString(3);
-                        connection.ProductUpdateLevel = sqlDataReader.GetString(4);
-                        connection.ProductVersion = sqlDataReader.GetString(5);
-                        connection.Collation = sqlDataReader.GetString(6);
-                        connection.ProductMajorVersion = sqlDataReader.GetString(7);
-                        connection.ProductMinorVersion = sqlDataReader.GetString(8);
-                        connection.InstanceName = sqlDataReader.GetString(9);
+                        connection.MachineName = sqlDataReader.GetSqlString(0).IsNull ? String.Empty : sqlDataReader.GetSqlString(0).Value;
+                        connection.ServerName = sqlDataReader.GetSqlString(1).IsNull ? String.Empty : sqlDataReader.GetSqlString(1).Value;
+                        connection.Edition = sqlDataReader.GetSqlString(2).IsNull ? String.Empty : sqlDataReader.GetSqlString(2).Value;
+                        connection.ProductLevel = sqlDataReader.GetSqlString(3).IsNull ? String.Empty : sqlDataReader.GetSqlString(3).Value;
+                        connection.ProductUpdateLevel = sqlDataReader.GetSqlString(4).IsNull ? String.Empty : sqlDataReader.GetSqlString(4).Value;
+                        connection.ProductVersion = sqlDataReader.GetSqlString(5).IsNull ? String.Empty : sqlDataReader.GetSqlString(5).Value;
+                        connection.Collation = sqlDataReader.GetSqlString(6).IsNull ? String.Empty : sqlDataReader.GetSqlString(6).Value;
+                        connection.ProductMajorVersion = sqlDataReader.GetSqlString(7).IsNull ? String.Empty : sqlDataReader.GetSqlString(7).Value;
+                        connection.ProductMinorVersion = sqlDataReader.GetSqlString(8).IsNull ? String.Empty : sqlDataReader.GetSqlString(8).Value;
+
+                        if (!sqlDataReader.IsDBNull(9))
+                        {
+                            connection.InstanceName = sqlDataReader.GetSqlString(9).IsNull
+                            ? String.Empty
+                            : sqlDataReader.GetSqlString(9).Value;
+                        }
+                        else
+                        {
+                            connection.InstanceName = null;
+                        }
                     }
 
 
-                    connection.ConnectionInfo = "Successful";
+                    connection.ConnectionInfo = "Success";
                 }
             }
             catch (Exception e)
@@ -215,7 +225,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
 
                 return tables;
             }
-            
+
         }
     }
 }
