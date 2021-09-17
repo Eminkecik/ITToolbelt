@@ -76,13 +76,13 @@ namespace ITToolbelt.Dal.Contract.MySql
                     connection.MachineName = sqlDataReader.GetString(0);
                     connection.ServerName = sqlDataReader.GetString(1);
                     connection.Edition = sqlDataReader.GetString(2);
-                    connection.ProductLevel = sqlDataReader.GetString(3);
-                    connection.ProductUpdateLevel = sqlDataReader.GetString(4);
+                   // connection.ProductLevel = sqlDataReader.GetString(3);
+                   // connection.ProductUpdateLevel = sqlDataReader.GetString(4);
                     connection.ProductVersion = sqlDataReader.GetString(5);
                     connection.Collation = sqlDataReader.GetString(6);
-                    connection.ProductMajorVersion = sqlDataReader.GetString(7);
-                    connection.ProductMinorVersion = sqlDataReader.GetString(8);
-                    connection.InstanceName = sqlDataReader.GetString(9);
+                   // connection.ProductMajorVersion = sqlDataReader.GetString(7);
+                   // connection.ProductMinorVersion = sqlDataReader.GetString(8);
+                   // connection.InstanceName = sqlDataReader.GetString(9);
                 }
 
 
@@ -112,12 +112,12 @@ namespace ITToolbelt.Dal.Contract.MySql
 
                     while (sqlDataReader.Read())
                     {
-                        Database database = new Database
-                        {
-                            Id = sqlDataReader.GetInt32(0),
-                            Name = sqlDataReader.GetString(1),
-                            State = sqlDataReader.GetByte(2)
-                        };
+                        Database database = new Database();
+
+                        database.Id = sqlDataReader.GetInt32(0);
+                        database.Name = sqlDataReader.GetString(1);
+                        database.State = (byte)sqlDataReader.GetInt32(2);
+                        
                         databases.Add(database);
                     }
                 }
