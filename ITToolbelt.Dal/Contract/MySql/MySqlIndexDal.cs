@@ -95,20 +95,55 @@ namespace ITToolbelt.Dal.Contract.MySql
 
         public List<Column> GetColumns(Index index)
         {
-            return null;
-            //using (MsSqlServerContext msSqlServerContext = new MsSqlServerContext(ConnectionString))
-            //{
-            //    string sql = $"SELECT ColumnName = col.name, SortType = (case ic.is_descending_key when 0 then 'ASCENDING' when 1 then 'DESCENDING' end), [Type] = tp.name, IsInclude = ic.is_included_column FROM sys.indexes ind INNER JOIN sys.index_columns ic ON  ind.object_id = ic.object_id and ind.index_id = ic.index_id INNER JOIN sys.columns col ON ic.object_id = col.object_id and ic.column_id = col.column_id join sys.types tp on col.user_type_id = tp.user_type_id WHERE ind.name = '{index.IndexName}' ORDER BY col.name";
-            //    try
-            //    {
-            //        List<Column> columns = msSqlServerContext.Database.SqlQuery<Column>(sql).ToList();
-            //        return columns;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        return null;
-            //    }
-            //}
+            List<Column> indexes;
+            using (MySqlConnection sqlConnection = new MySqlConnection(ConnectInfo.ConnectionString))
+            {
+                MySqlCommand sqlCommand = new MySqlCommand { Connection = sqlConnection };
+                sqlCommand.CommandText = "select null 'type', COLUMN_NAME, 0 'IsInclude', null 'SortType' from INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = @dbName and TABLE_NAME = @table AND INDEX_NAME = @index";
+                sqlCommand.Parameters.AddWithValue("@dbName", sqlConnection.Database);
+                sqlCommand.Parameters.AddWithValue("@table", index.Table);
+                sqlCommand.Parameters.AddWithValue("@index", index.IndexName);
+
+                try
+                {
+                    sqlConnection.Open();
+                    MySqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        indexes = new List<Column>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Column database = new Column
+                        {
+                           // Type = sqlDataReader.GetString(0),
+                            ColumnName = sqlDataReader.GetString(1),
+                           // IsInclude = sqlDataReader.GetBoolean(2),
+                           // SortType = sqlDataReader.GetString(3)
+                        };
+                        indexes.Add(database);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (sqlConnection.State != ConnectionState.Closed)
+                    {
+                        sqlConnection.Close();
+                    }
+                }
+
+                return indexes;
+            }
         }
     }
 }
