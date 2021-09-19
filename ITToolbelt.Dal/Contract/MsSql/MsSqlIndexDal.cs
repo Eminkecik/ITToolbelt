@@ -4,24 +4,25 @@ using System.Data;
 using System.Linq;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Entity.EntityClass;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace ITToolbelt.Dal.Contract.MsSql
 {
     public class MsSqlIndexDal : IIndexDal
     {
-        public string ConnectionString { get; }
+        public ConnectInfo ConnectInfo { get; }
 
-        public MsSqlIndexDal(string connectionString)
+        public MsSqlIndexDal(ConnectInfo connectInfo)
         {
-            ConnectionString = connectionString;
+            ConnectInfo = connectInfo;
         }
 
         public List<Index> GetIndexes()
         {
 
             List<Index> indexes;
-            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectInfo.ConnectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand { Connection = sqlConnection };
                 sqlCommand.CommandText = "SELECT S.name as [Schema], " + // 0
@@ -46,16 +47,22 @@ namespace ITToolbelt.Dal.Contract.MsSql
 
                     while (sqlDataReader.Read())
                     {
-                        Index database = new Index
+                        Index index = new Index();
+
+                        index.Schema = sqlDataReader.GetString(0);
+                        index.Table = sqlDataReader.GetString(1);
+                        index.IndexName = sqlDataReader.GetString(2);
+                        index.State = sqlDataReader.GetString(3);
+                        if (!sqlDataReader.IsDBNull(4))
                         {
-                            Schema = sqlDataReader.GetString(0),
-                            Table = sqlDataReader.GetString(1),
-                            IndexName = sqlDataReader.GetString(2),
-                            State = sqlDataReader.GetString(3),
-                            Fragmantation = (double?)sqlDataReader.GetSqlDouble(4),
-                            PageCount = sqlDataReader.GetSqlInt64(5).Value
-                        };
-                        indexes.Add(database);
+                            index.Fragmantation = (double?)sqlDataReader.GetSqlDouble(4);
+                        }
+                        if (!sqlDataReader.IsDBNull(5))
+                        {
+                            index.PageCount = sqlDataReader.GetSqlInt64(5).Value;
+                        }
+                        
+                        indexes.Add(index);
                     }
                 }
                 catch (Exception e)

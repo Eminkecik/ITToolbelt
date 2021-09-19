@@ -51,11 +51,19 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 {
                     treeNode.BackColor = Color.Red;
                 }
-                treeViewConnections.Invoke(
+                if (treeViewConnections.InvokeRequired)
+                {
+                    treeViewConnections.Invoke(
                     new Action(delegate
                     {
                         treeViewConnections.Nodes.Add(treeNode);
                     }));
+                }
+                else
+                {
+                    treeViewConnections.Nodes.Add(treeNode);
+                }
+                
             }
         }
 
