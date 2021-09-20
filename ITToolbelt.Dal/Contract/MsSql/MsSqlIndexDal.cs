@@ -61,7 +61,7 @@ namespace ITToolbelt.Dal.Contract.MsSql
                         {
                             index.PageCount = sqlDataReader.GetSqlInt64(5).Value;
                         }
-                        
+
                         indexes.Add(index);
                     }
                 }
@@ -84,38 +84,87 @@ namespace ITToolbelt.Dal.Contract.MsSql
 
         public bool SetDisable(Index index)
         {
-            return false;
-            //using (MsSqlServerContext msSqlServerContext = new MsSqlServerContext(ConnectionString))
-            //{
-            //    string sql = $"ALTER INDEX [{index.IndexName}] ON [{index.Schema}].[{index.Table}] DISABLE";
-            //    try
-            //    {
-            //        msSqlServerContext.Database.ExecuteSqlCommand(sql);
-            //        return true;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        return false;
-            //    }
-            //}
+            string sql = $"ALTER INDEX [{index.IndexName}] ON [{index.Schema}].[{index.Table}] DISABLE";
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectInfo.ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand { Connection = sqlConnection };
+
+                try
+                {
+                    sqlConnection.Open();
+                    int nonQuery = sqlCommand.ExecuteNonQuery();
+                    return nonQuery > 1;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+                finally
+                {
+                    if (sqlConnection.State != ConnectionState.Closed)
+                    {
+                        sqlConnection.Close();
+                    }
+                }
+            }
         }
 
         public List<Column> GetColumns(Index index)
         {
-            return null;
-            //using (MsSqlServerContext msSqlServerContext = new MsSqlServerContext(ConnectionString))
-                //{
-                //    string sql = $"SELECT ColumnName = col.name, SortType = (case ic.is_descending_key when 0 then 'ASCENDING' when 1 then 'DESCENDING' end), [Type] = tp.name, IsInclude = ic.is_included_column FROM sys.indexes ind INNER JOIN sys.index_columns ic ON  ind.object_id = ic.object_id and ind.index_id = ic.index_id INNER JOIN sys.columns col ON ic.object_id = col.object_id and ic.column_id = col.column_id join sys.types tp on col.user_type_id = tp.user_type_id WHERE ind.name = '{index.IndexName}' ORDER BY col.name";
-                //    try
-                //    {
-                //        List<Column> columns = msSqlServerContext.Database.SqlQuery<Column>(sql).ToList();
-                //        return columns;
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        return null;
-                //    }
-                //}
+            List<Column> columns;
+            string sql = $"SELECT ColumnName = col.name, " +
+                         $"SortType = (case ic.is_descending_key when 0 then 'ASCENDING' when 1 then 'DESCENDING' end), " +
+                         $"[Type] = tp.name, " +
+                         $"IsInclude = ic.is_included_column " +
+                         "FROM sys.indexes ind INNER JOIN sys.index_columns ic ON  ind.object_id = ic.object_id and ind.index_id = ic.index_id INNER JOIN sys.columns col ON ic.object_id = col.object_id and ic.column_id = col.column_id join sys.types tp on col.user_type_id = tp.user_type_id WHERE ind.name = @iname ORDER BY col.name";
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectInfo.ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@iname", index.IndexName);
+                try
+                {
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        columns = new List<Column>();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                    while (sqlDataReader.Read())
+                    {
+                        Column column = new Column
+                        {
+                            ColumnName = sqlDataReader.GetString(0),
+                            SortType = sqlDataReader.GetString(1),
+                            Type = sqlDataReader.GetString(2),
+                            IsInclude = sqlDataReader.GetBoolean(3)
+                        };
+
+                        
+
+                        columns.Add(column);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    return null;
+                }
+                finally
+                {
+                    if (sqlConnection.State != ConnectionState.Closed)
+                    {
+                        sqlConnection.Close();
+                    }
+                }
+
+                return columns;
+            }
+
         }
     }
 }
