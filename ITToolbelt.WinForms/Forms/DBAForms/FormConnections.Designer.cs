@@ -32,9 +32,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnections));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonColumnSelection = new System.Windows.Forms.Button();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonAddMsSql = new System.Windows.Forms.Button();
             this.groupBoxConnections = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBarConnections = new System.Windows.Forms.ToolStripProgressBar();
@@ -58,7 +55,11 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.dbServerTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionInfoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonColumnSelection = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonAddMySql = new System.Windows.Forms.Button();
+            this.buttonAddMsSql = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -70,6 +71,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.panel1.Controls.Add(this.buttonColumnSelection);
             this.panel1.Controls.Add(this.buttonRefresh);
+            this.panel1.Controls.Add(this.buttonEdit);
             this.panel1.Controls.Add(this.buttonAddMySql);
             this.panel1.Controls.Add(this.buttonAddMsSql);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -77,47 +79,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1050, 99);
             this.panel1.TabIndex = 0;
-            // 
-            // buttonColumnSelection
-            // 
-            this.buttonColumnSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonColumnSelection.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
-            this.buttonColumnSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonColumnSelection.Location = new System.Drawing.Point(882, 12);
-            this.buttonColumnSelection.Name = "buttonColumnSelection";
-            this.buttonColumnSelection.Size = new System.Drawing.Size(75, 75);
-            this.buttonColumnSelection.TabIndex = 0;
-            this.buttonColumnSelection.Text = "Column Selection";
-            this.buttonColumnSelection.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonColumnSelection.UseVisualStyleBackColor = true;
-            this.buttonColumnSelection.Click += new System.EventHandler(this.buttonColumnSelection_Click);
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
-            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
-            this.buttonRefresh.TabIndex = 0;
-            this.buttonRefresh.Text = "Refresh From Server";
-            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // buttonAddMsSql
-            // 
-            this.buttonAddMsSql.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
-            this.buttonAddMsSql.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonAddMsSql.Location = new System.Drawing.Point(12, 12);
-            this.buttonAddMsSql.Name = "buttonAddMsSql";
-            this.buttonAddMsSql.Size = new System.Drawing.Size(75, 75);
-            this.buttonAddMsSql.TabIndex = 0;
-            this.buttonAddMsSql.Text = "Add MsSQL Connection";
-            this.buttonAddMsSql.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonAddMsSql.UseVisualStyleBackColor = true;
-            this.buttonAddMsSql.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // groupBoxConnections
             // 
@@ -313,9 +274,37 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.connectionBindingSource.DataSource = typeof(ITToolbelt.Entity.Db.Connection);
             // 
+            // buttonColumnSelection
+            // 
+            this.buttonColumnSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonColumnSelection.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
+            this.buttonColumnSelection.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonColumnSelection.Location = new System.Drawing.Point(882, 12);
+            this.buttonColumnSelection.Name = "buttonColumnSelection";
+            this.buttonColumnSelection.Size = new System.Drawing.Size(75, 75);
+            this.buttonColumnSelection.TabIndex = 0;
+            this.buttonColumnSelection.Text = "Column Selection";
+            this.buttonColumnSelection.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonColumnSelection.UseVisualStyleBackColor = true;
+            this.buttonColumnSelection.Click += new System.EventHandler(this.buttonColumnSelection_Click);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Image = global::ITToolbelt.WinForms.Properties.Resources.refresh;
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonRefresh.Location = new System.Drawing.Point(963, 12);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 75);
+            this.buttonRefresh.TabIndex = 0;
+            this.buttonRefresh.Text = "Refresh From Server";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
             // buttonAddMySql
             // 
-            this.buttonAddMySql.Image = global::ITToolbelt.WinForms.Properties.Resources.add;
+            this.buttonAddMySql.Image = global::ITToolbelt.WinForms.Properties.Resources.MySQL;
             this.buttonAddMySql.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonAddMySql.Location = new System.Drawing.Point(93, 12);
             this.buttonAddMySql.Name = "buttonAddMySql";
@@ -325,6 +314,32 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonAddMySql.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonAddMySql.UseVisualStyleBackColor = true;
             this.buttonAddMySql.Click += new System.EventHandler(this.buttonAddMySql_Click);
+            // 
+            // buttonAddMsSql
+            // 
+            this.buttonAddMsSql.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddMsSql.Image")));
+            this.buttonAddMsSql.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonAddMsSql.Location = new System.Drawing.Point(12, 12);
+            this.buttonAddMsSql.Name = "buttonAddMsSql";
+            this.buttonAddMsSql.Size = new System.Drawing.Size(75, 75);
+            this.buttonAddMsSql.TabIndex = 0;
+            this.buttonAddMsSql.Text = "Add MsSQL Connection";
+            this.buttonAddMsSql.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAddMsSql.UseVisualStyleBackColor = true;
+            this.buttonAddMsSql.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
+            this.buttonEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonEdit.Location = new System.Drawing.Point(174, 12);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(75, 75);
+            this.buttonEdit.TabIndex = 0;
+            this.buttonEdit.Text = "Edit Connection";
+            this.buttonEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // FormConnections
             // 
@@ -381,5 +396,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarConnections;
         private System.Windows.Forms.Button buttonAddMySql;
+        private System.Windows.Forms.Button buttonEdit;
     }
 }

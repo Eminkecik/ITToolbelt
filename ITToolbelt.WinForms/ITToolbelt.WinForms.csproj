@@ -218,6 +218,9 @@
     <None Include="Resources\accept.png" />
     <None Include="Resources\block.png" />
     <None Include="Resources\key.png" />
+    <None Include="Resources\sqlserver.png" />
+    <None Include="Resources\sqlserver1.png" />
+    <None Include="Resources\MySQL.png" />
     <Content Include="toolbox.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -44,6 +44,27 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             progressBarConnection.StartStopMarque();
         }
 
+        public FormMsSqlLogin(Connection connection)
+        {
+            InitializeComponent();
+            Connection = connection;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+
+            sqlConnectionString = new SqlConnectionStringBuilder(connection.ConnectionString);
+
+            textBoxConName.Text = connection.Name;
+            textBoxServerName.Text = sqlConnectionString.DataSource;
+            comboBoxAuthType.SelectedIndex = Convert.ToInt32(!sqlConnectionString.IntegratedSecurity);
+            if (!sqlConnectionString.IntegratedSecurity)
+            {
+                textBoxUserName.Text = sqlConnectionString.UserID;
+                textBoxPassword.Text = sqlConnectionString.Password;
+            }
+        }
+
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             sqlConnectionString.DataSource = textBoxServerName.Text;
@@ -64,7 +85,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 Connection.Name = textBoxConName.Text;
                 Connection.ConnectionString = sqlConnectionString.ConnectionString;
                 ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
-                SuccessFlag = connectionManager.Add(Connection);
+                SuccessFlag = connectionManager.Add(Connection); //todo Güncelleme eklenecek
                 
             }
             catch (Exception exception)

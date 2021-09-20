@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITToolbelt.Bll.Managers;
 using ITToolbelt.Entity.Db;
+using ITToolbelt.Entity.Enum;
 using ITToolbelt.WinForms.ExtensionMethods;
 using ITToolbelt.WinForms.Forms.ControlSpesifications;
 
@@ -104,6 +105,39 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 getFromServer = true;
                 toolStripProgressBarConnections.StartStopMarque();
                 backgroundWorker.RunWorkerAsync();
+            }
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewConnections.SelectedRows.Count == 0 || !(dataGridViewConnections.SelectedRows[0].DataBoundItem is Connection))
+            {
+                return;
+            }
+
+            Connection connection = dataGridViewConnections.SelectedRows[0].DataBoundItem as Connection;
+            if (connection == null)
+            {
+                return;
+            }
+
+            bool result = false;
+            Form form = connection.DbServerTypeCode == DbServerType.MsSql ? new FormMsSqlLogin(connection) : (Form)new FormMySqlLogin(connection);
+            form.ShowDialog();
+
+            switch (form)
+            {
+                case FormMsSqlLogin login:
+                    result = login.SuccessFlag;
+                    break;
+                case FormMySqlLogin sqlLogin:
+                    result = sqlLogin.SuccessFlag;
+                    break;
+            }
+
+            if (result)
+            {
+                RefreshData();
             }
         }
     }

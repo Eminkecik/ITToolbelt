@@ -39,6 +39,23 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
+        public FormMySqlLogin(Connection connection)
+        {
+            InitializeComponent();
+            sqlConnectionString = new MySqlConnectionStringBuilder(connection.ConnectionString);
+
+            Connection = connection;
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+
+            textBoxConName.Text = connection.Name;
+            textBoxServerName.Text = sqlConnectionString.Server;
+            textBoxUserName.Text = sqlConnectionString.UserID;
+            textBoxPassword.Text = sqlConnectionString.Password;
+        }
+
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBarConnection.StartStopMarque();
@@ -61,7 +78,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 Connection.Name = textBoxConName.Text;
                 Connection.ConnectionString = sqlConnectionString.ConnectionString;
                 ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
-                SuccessFlag = connectionManager.Add(Connection);
+                SuccessFlag = connectionManager.Add(Connection); //todo güncelleme eklenecek
 
             }
             catch (Exception exception)
