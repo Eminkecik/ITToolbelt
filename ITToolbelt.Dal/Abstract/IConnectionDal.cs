@@ -11,6 +11,7 @@ namespace ITToolbelt.Dal.Abstract
         List<Database> GetDatabases();
         List<Table> GetTables();
         bool Delete(int connectionId);
+        bool Update(Connection connection);
     }
     
 }

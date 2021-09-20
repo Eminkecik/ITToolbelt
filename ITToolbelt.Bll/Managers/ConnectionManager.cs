@@ -48,5 +48,11 @@ namespace ITToolbelt.Bll.Managers
             bool result = iConnectionDal.Delete(connectionId);
             return result;
         }
+
+        public bool Update(Connection connection)
+        {
+            bool result = iConnectionDal.Update(connection);
+            return result;
+        }
     }
 }

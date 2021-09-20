@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using ITToolbelt.Dal.Abstract;
 using ITToolbelt.Entity.Db;
@@ -241,6 +242,17 @@ namespace ITToolbelt.Dal.Contract.MsSql
                 context.Connections.Remove(connection);
                 bool changes = context.SaveChanges();
                 return changes;
+            }
+        }
+
+        public bool Update(Connection connection)
+        {
+            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectInfo.ConnectionString))
+            {
+                context.Entry(connection).State = EntityState.Modified;
+
+                return context.SaveChanges();
+
             }
         }
     }

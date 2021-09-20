@@ -216,5 +216,16 @@ namespace ITToolbelt.Dal.Contract.MySql
                 return changes;
             }
         }
+
+        public bool Update(Connection connection)
+        {
+            using (ItToolbeltContextMySql context = new ItToolbeltContextMySql(ConnectInfo.ConnectionString))
+            {
+                context.Entry(connection).State = EntityState.Modified;
+
+                return context.SaveChanges();
+
+            }
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 Connection.Name = textBoxConName.Text;
                 Connection.ConnectionString = sqlConnectionString.ConnectionString;
                 ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
-                SuccessFlag = connectionManager.Add(Connection); //todo Güncelleme eklenecek
+                SuccessFlag = Connection.Id > 0 ? connectionManager.Update(Connection) : connectionManager.Add(Connection);
                 
             }
             catch (Exception exception)
