@@ -140,5 +140,29 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
                 RefreshData();
             }
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewConnections.SelectedRows.Count == 0 || !(dataGridViewConnections.SelectedRows[0].DataBoundItem is Connection))
+            {
+                return;
+            }
+
+            Connection connection = dataGridViewConnections.SelectedRows[0].DataBoundItem as Connection;
+            if (connection == null)
+            {
+                return;
+            }
+            if (GlobalMethods.DeleteConfirm(connection.Name) != DialogResult.Yes)
+            {
+                return;
+            }
+            ConnectionManager connectionManager = new ConnectionManager(GlobalVariables.ConnectInfo);
+            bool delete = connectionManager.Delete(connection.Id);
+            if (delete)
+            {
+                RefreshData();
+            }
+        }
     }
 }

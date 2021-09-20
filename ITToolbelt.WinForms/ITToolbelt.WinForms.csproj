@@ -155,6 +155,7 @@
     <Compile Include="Forms\MainAppForms\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalMethods.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="InfoForms\FormProgress.cs">
       <SubType>Form</SubType>
@@ -221,6 +222,8 @@
     <None Include="Resources\sqlserver.png" />
     <None Include="Resources\sqlserver1.png" />
     <None Include="Resources\MySQL.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\delete1.png" />
     <Content Include="toolbox.ico" />
   </ItemGroup>
   <ItemGroup>

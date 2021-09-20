@@ -57,9 +57,10 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.connectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonColumnSelection = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonAddMySql = new System.Windows.Forms.Button();
             this.buttonAddMsSql = new System.Windows.Forms.Button();
-            this.buttonEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBoxConnections.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -71,6 +72,7 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             // 
             this.panel1.Controls.Add(this.buttonColumnSelection);
             this.panel1.Controls.Add(this.buttonRefresh);
+            this.panel1.Controls.Add(this.buttonDelete);
             this.panel1.Controls.Add(this.buttonEdit);
             this.panel1.Controls.Add(this.buttonAddMySql);
             this.panel1.Controls.Add(this.buttonAddMsSql);
@@ -302,6 +304,32 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonDelete.Location = new System.Drawing.Point(255, 12);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 75);
+            this.buttonDelete.TabIndex = 0;
+            this.buttonDelete.Text = "Delete Connection";
+            this.buttonDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
+            this.buttonEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonEdit.Location = new System.Drawing.Point(174, 12);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(75, 75);
+            this.buttonEdit.TabIndex = 0;
+            this.buttonEdit.Text = "Edit Connection";
+            this.buttonEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            // 
             // buttonAddMySql
             // 
             this.buttonAddMySql.Image = global::ITToolbelt.WinForms.Properties.Resources.MySQL;
@@ -327,19 +355,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
             this.buttonAddMsSql.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonAddMsSql.UseVisualStyleBackColor = true;
             this.buttonAddMsSql.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Image = global::ITToolbelt.WinForms.Properties.Resources.edit_page;
-            this.buttonEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonEdit.Location = new System.Drawing.Point(174, 12);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(75, 75);
-            this.buttonEdit.TabIndex = 0;
-            this.buttonEdit.Text = "Edit Connection";
-            this.buttonEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // FormConnections
             // 
@@ -397,5 +412,6 @@ namespace ITToolbelt.WinForms.Forms.DBAForms
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarConnections;
         private System.Windows.Forms.Button buttonAddMySql;
         private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }
