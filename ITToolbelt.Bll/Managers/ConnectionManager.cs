@@ -42,5 +42,11 @@ namespace ITToolbelt.Bll.Managers
             List<Table> tables = iConnectionDal.GetTables();
             return tables;
         }
+
+        public bool Delete(int connectionId)
+        {
+            bool result = iConnectionDal.Delete(connectionId);
+            return result;
+        }
     }
 }

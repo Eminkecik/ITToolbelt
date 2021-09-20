@@ -200,5 +200,21 @@ namespace ITToolbelt.Dal.Contract.MySql
                 return tables;
             }
         }
+
+        public bool Delete(int connectionId)
+        {
+            using (ItToolbeltContextMySql contextMySql = new ItToolbeltContextMySql(ConnectInfo.ConnectionString))
+            {
+                Connection connection = contextMySql.Connections.FirstOrDefault(c => c.Id == connectionId);
+                if (connection is null)
+                {
+                    return false;
+                }
+
+                contextMySql.Connections.Remove(connection);
+                bool changes = contextMySql.SaveChanges();
+                return changes;
+            }
+        }
     }
 }

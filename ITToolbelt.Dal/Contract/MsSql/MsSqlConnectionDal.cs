@@ -227,5 +227,21 @@ namespace ITToolbelt.Dal.Contract.MsSql
             }
 
         }
+
+        public bool Delete(int connectionId)
+        {
+            using (ItToolbeltContext context = new ItToolbeltContext(ConnectInfo.ConnectionString))
+            {
+                Connection connection = context.Connections.FirstOrDefault(c => c.Id == connectionId);
+                if (connection is null)
+                {
+                    return false;
+                }
+
+                context.Connections.Remove(connection);
+                bool changes = context.SaveChanges();
+                return changes;
+            }
+        }
     }
 }
