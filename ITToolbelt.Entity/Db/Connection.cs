@@ -66,6 +66,7 @@ namespace ITToolbelt.Entity.Db
         [DisplayName("Connection Info")]
         [MaxLength(10)]
         public string ConnectionInfo { get; set; }
+        
 
         #endregion FromServer
 

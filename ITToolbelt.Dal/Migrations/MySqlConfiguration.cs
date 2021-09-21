@@ -10,6 +10,7 @@
         public MySqlConfiguration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ITToolbelt.Dal.Contract.MySql.ItToolbeltContextMySql context)

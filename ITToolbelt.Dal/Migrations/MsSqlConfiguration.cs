@@ -10,6 +10,7 @@
         public MsSqlConfiguration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ITToolbelt.Dal.Contract.MsSql.ItToolbeltContext context)

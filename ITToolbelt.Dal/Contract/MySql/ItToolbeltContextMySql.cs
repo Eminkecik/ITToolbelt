@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using ITToolbelt.Dal.Migrations;
 using ITToolbelt.Entity.Db;
 using MySql.Data.EntityFramework;
 
@@ -10,10 +11,12 @@ namespace ITToolbelt.Dal.Contract.MySql
     {
         public ItToolbeltContextMySql()
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ItToolbeltContextMySql, MySqlConfiguration>());
         }
 
         public ItToolbeltContextMySql(string nameOrConnectionString) : base(nameOrConnectionString)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ItToolbeltContextMySql, MySqlConfiguration>());
         }
 
         public DbSet<Connection> Connections { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.Entity;
+using ITToolbelt.Dal.Migrations;
 using ITToolbelt.Entity.Db;
 
 namespace ITToolbelt.Dal.Contract.MsSql
@@ -9,10 +10,12 @@ namespace ITToolbelt.Dal.Contract.MsSql
     {
         public ItToolbeltContext()
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ItToolbeltContext, MsSqlConfiguration>());
         }
 
         public ItToolbeltContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ItToolbeltContext, MsSqlConfiguration>());
         }
 
         public DbSet<Connection> Connections { get; set; }
