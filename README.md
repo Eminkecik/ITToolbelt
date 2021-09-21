@@ -1,5 +1,6 @@
 # ITToolbelt
-IT departmanı için araç seti
+
+Proje ile ilgili soru ve önerilerinizi saitorhan@kodlagelistir.com adresine iletebilirsiniz.
 
 
 ## YouTube Channal Videos
