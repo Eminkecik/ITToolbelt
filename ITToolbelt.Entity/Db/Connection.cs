@@ -13,18 +13,18 @@ namespace ITToolbelt.Entity.Db
         [DisplayName("DB Server Type Code")]
         public DbServerType DbServerTypeCode { get; set; }
 
-        [Required(ErrorMessage = "Connection name field cannot be empty")]
+        [Required]
         [DisplayName("Connection Name")]
         [MaxLength(128)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Connection string field cannot be empty")]
+        [Required]
         [MaxLength(500)]
         [DisplayName("Connection String")]
         public string ConnectionString { get; set; }
 
         [DisplayName("Creation Date")]
-        [Required(ErrorMessage = "Creation date field cannot be empty")]
+        [Required]
         public DateTime CreateDate { get; set; }
 
         [DisplayName("Date of update")]

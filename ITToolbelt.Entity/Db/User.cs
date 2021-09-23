@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITToolbelt.Entity.Db
@@ -8,8 +10,20 @@ namespace ITToolbelt.Entity.Db
         public int Id { get; set; }
         public int? SystemUserId { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        [MaxLength(50)]
+        [DisplayName("Firsname")]
+        public string Firstname { get; set; }
+        
+        [Required]
+        [MaxLength(50)]
+        [DisplayName("Surname")]
         public string Surname { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        [DisplayName("Mail")]
+        [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
 
 
@@ -17,6 +31,7 @@ namespace ITToolbelt.Entity.Db
         public List<UserGroup> UserGroups { get; set; }
 
         [NotMapped]
-        public string Fullname => $"{Name} {Surname}";
+        [DisplayName("Full Name")]
+        public string Fullname => $"{Firstname} {Surname}";
     }
 }

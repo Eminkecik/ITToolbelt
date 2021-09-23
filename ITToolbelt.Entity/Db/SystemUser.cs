@@ -8,6 +8,8 @@ namespace ITToolbelt.Entity.Db
         [Key]
         public int UserId { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         public string Password { get; set; }
 
         public User User { get; set; }

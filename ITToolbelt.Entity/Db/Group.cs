@@ -9,11 +9,15 @@ namespace ITToolbelt.Entity.Db
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Group name cannot be blank.")]
-        [MaxLength(100, ErrorMessage = "Group name can be up to 100 characters.")]
+        [Required]
+        [MaxLength(100)]
         [Index(IsUnique = true)]
         [DisplayName("Group Name")]
         public string Name { get; set; }
+
+        [MaxLength(500)]
+        [DisplayName("Description")]
+        public string Description { get; set; }
 
         public List<UserGroup> UserGroups { get; set; }
     }
