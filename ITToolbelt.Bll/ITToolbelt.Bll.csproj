@@ -236,8 +236,10 @@
   <ItemGroup>
     <Compile Include="ExternalLibraries\NinjectModules.cs" />
     <Compile Include="Managers\ConnectionManager.cs" />
+    <Compile Include="Managers\GroupManager.cs" />
     <Compile Include="Managers\IndexManager.cs" />
     <Compile Include="Managers\SystemManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -40,12 +40,16 @@ namespace ITToolbelt.Bll.ExternalLibraries
             StandartKernel.Bind<IConnectionDal>().To<MsSqlConnectionDal>().WithConstructorArgument("connectInfo", connectInfo);
             StandartKernel.Bind<IIndexDal>().To<MsSqlIndexDal>().WithConstructorArgument("connectInfo", connectInfo);
             StandartKernel.Bind<ISystemDal>().To<MsSqlSystemDal>().WithConstructorArgument("connectInfo", connectInfo);
+            StandartKernel.Bind<IUserDal>().To<MsSqlUserDal>().WithConstructorArgument("connectInfo", connectInfo);
+            StandartKernel.Bind<IGroupDal>().To<MsSqlGroupDal>().WithConstructorArgument("connectInfo", connectInfo);
         }
         private void LoadMySql()
         {
             StandartKernel.Bind<IConnectionDal>().To<MySqlConnectionDal>().WithConstructorArgument("connectInfo", connectInfo);
             StandartKernel.Bind<IIndexDal>().To<MySqlIndexDal>().WithConstructorArgument("connectInfo", connectInfo);
             StandartKernel.Bind<ISystemDal>().To<MySqlSystemDal>().WithConstructorArgument("connectInfo", connectInfo);
+            StandartKernel.Bind<IUserDal>().To<MySqlUserDal>().WithConstructorArgument("connectInfo", connectInfo);
+            StandartKernel.Bind<IGroupDal>().To<MySqlGroupDal>().WithConstructorArgument("connectInfo", connectInfo);
         }
     }
 }
